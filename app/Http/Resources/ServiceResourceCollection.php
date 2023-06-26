@@ -15,7 +15,7 @@ class ServiceResourceCollection extends ResourceCollection
     public function toArray(Request $request): array
     {
         return [
-            'status' => 'true',
+            'status' => true,
             'message' => 'Success',
             'data' => $this->collection,
         ];

@@ -1,0 +1,144 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Resources\CampaignsServicesResource;
+use App\Http\Resources\CampaignsServicesResourceCollection;
+use App\Models\CampaignsServices;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+class CampaignsServicesController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        // Eloquent
+        $campaignsServices = CampaignsServices::paginate(10);
+        return new CampaignsServicesResourceCollection($campaignsServices);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        // validate
+        $valid = Validator($request->all(), [
+            'amount' => 'required|numeric|min:0',
+            'description' => 'required|max:300',
+            'start_date' => 'required|date|after_or_equal:today',
+            'end_date' => 'required|date|after:start_date',
+            'status' => 'required|boolean|numeric',
+            'service_id' => 'required|exists:services,id',
+            'campaign_id' => 'required|exists:campaigns,id',
+        ]);
+
+        // store
+        if (!$valid->fails()) {
+            // Eloquent
+            $campaignsServices = new CampaignsServices();
+            $campaignsServices->amount = $request->input('amount');
+            $campaignsServices->description = $request->input('description');
+            $campaignsServices->start_date = $request->input('start_date');
+            $campaignsServices->end_date = $request->input('end_date');
+            $campaignsServices->status = $request->input('status');
+            $campaignsServices->service_id = $request->input('service_id');
+            $campaignsServices->campaign_id = $request->input('campaign_id');
+            $saved = $campaignsServices->save();
+
+            return new Response(
+                ['data' => $campaignsServices, 'message' => $saved ? 'Created Campaign Services Successfully' : 'Created Campaign Services Failed!'],
+                $saved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST
+            );
+        } else {
+            return new Response(['message' => $valid->getMessageBag()->first()], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(CampaignsServices $campaignsService)
+    {
+        //
+        return new CampaignsServicesResource($campaignsService);
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        // validate
+        $valid = Validator($request->all(), [
+            'amount' => 'required|numeric|min:0',
+            'description' => 'required|max:300',
+            'start_date' => 'required|date|after_or_equal:today',
+            'end_date' => 'required|date|after:start_date',
+            'status' => 'required|boolean|numeric',
+            'service_id' => 'required|exists:services,id',
+            'campaign_id' => 'required|exists:campaigns,id',
+        ]);
+
+        // store
+        if (!$valid->fails()) {
+            // Eloquent
+            $campaignsServices = CampaignsServices::findOrFail($id);
+            $campaignsServices->amount = $request->input('amount');
+            $campaignsServices->description = $request->input('description');
+            $campaignsServices->start_date = $request->input('start_date');
+            $campaignsServices->end_date = $request->input('end_date');
+            $campaignsServices->status = $request->input('status');
+            $campaignsServices->service_id = $request->input('service_id');
+            $campaignsServices->campaign_id = $request->input('campaign_id');
+            $update = $campaignsServices->save();
+            return new Response(
+                ['data' => $campaignsServices, 'message' => $update ? 'Update Campaign Services Successfully' : 'Update Campaign Services Failed!'],
+                $update ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST
+            );
+        } else {
+            return new Response(['message' => $valid->getMessageBag()->first()], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        // Eloquent
+        $campaignsServices = CampaignsServices::findOrFail($id);
+        $deleted = $campaignsServices->delete();
+        return new Response(
+            [
+                "message" => $deleted ? "Successfully deleted" : "Failed deleted!"
+            ],
+            $deleted ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    public function restore(Request $request, $id)
+    {
+        //
+        $object = CampaignsServices::onlyTrashed()->findOrFail($id);
+        $restored = $object->restore();
+        return response()->json(['status' => $restored]);
+    }
+
+    public function forceDelete(Request $request, $id)
+    {
+        //
+        $object = CampaignsServices::withTrashed()->findOrFail($id);
+        $deleted = $object->forceDelete();
+        // if ($deleted && $object->image) {
+        //     // Storage::delete($object->image);
+        //     Storage::disk("public")->delete($object->image);
+        //     // dd($object->image);
+        // }
+        return response()->json(['status' => $deleted]);
+    }
+}

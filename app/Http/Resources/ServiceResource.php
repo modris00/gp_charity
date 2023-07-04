@@ -20,6 +20,7 @@ class ServiceResource extends JsonResource
             'description' => $this->description,
             'active' => $this->active,
             'image' => $this->image,
+            'created_at' => date_format($this->created_at, 'Y-m-d H:i:s'),
 
             "operations_count" => count($this->operations),
             // "campaigns_count" => count($this->campaigns),

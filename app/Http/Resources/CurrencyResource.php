@@ -20,6 +20,7 @@ class CurrencyResource extends JsonResource
             'abbreviation' => $this->abbreviation,
             'campaigns_count' => count($this->campaigns),
             "bills_count" => count($this->bills),
+            'created_at' => date_format($this->created_at, 'Y-m-d H:i:s'),
         ];
     }
 }

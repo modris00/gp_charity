@@ -27,7 +27,9 @@ class SubCategoryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            // 'category' => $this->category,
+            'services_count' => count($this->services),
+            'created_at' => date_format($this->created_at, 'Y-m-d H:i:s'),
+
         ];
 
         if (!is_null($this->category)) {

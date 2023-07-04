@@ -36,6 +36,11 @@ class CampaignResource extends JsonResource
             "bills_count" => count($this->bills),
             "operations_count" => count($this->operations),
             "campaignImages_count" => count($this->campaignImages),
+
+            //many to many :
+            // "services_count" => count($this->services),
+            // "donors_count" => count($this->donors),
+            // "beneficiaries_count" => count($this->beneficiaries),
         ];
 
         if (!is_null($this->admin)) {

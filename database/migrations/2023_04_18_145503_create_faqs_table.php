@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
-            $table->string("question", 100);
-            $table->string("answer", 250);
+            $table->string("question");
+            $table->string("answer");
             $table->enum("question_type", ['For Donor', 'For Beneficiary']);
             $table->softDeletes();
             $table->timestamps();

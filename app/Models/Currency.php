@@ -15,11 +15,11 @@ class Currency extends Model
         return $this->hasMany(Currency::class, 'currency_id', 'id');
     }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+    public function bills()
+    {
+        return $this->hasMany(Bill::class, 'currency_id', 'id');
+    }
+
     protected $hidden = [
         'created_at',
         'updated_at',

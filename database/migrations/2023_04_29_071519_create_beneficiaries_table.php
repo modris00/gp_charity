@@ -20,7 +20,12 @@ return new class extends Migration
             $table->integer('age')->nullable();
             $table->enum('gender', ['Male', 'Female']);
             $table->foreignId('area_id');
-            $table->foreign('area_id')->references('id')->on('areas')->onDelete('RESTRICT');
+
+            $table->foreignId('area_id')
+                ->nullable()
+                ->constrained('areas')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
 
             $table->softDeletes();
             $table->timestamps();

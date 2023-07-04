@@ -19,29 +19,36 @@ class Campaign extends Model
     {
         return $this->belongsTo(Currency::class, 'currency_id', 'id');
     }
-    public function operations(){
-        return $this->hasMany(CampaignOperations::class,'campaign_id','id');
+
+    public function operations()
+    {
+        return $this->hasMany(CampaignOperations::class, 'campaign_id', 'id');
     }
 
     public function campaignImages()
     {
-        return $this->hasMany(CampaignImages::class , 'campaign_id' , 'id');
+        return $this->hasMany(CampaignImages::class, 'campaign_id', 'id');
+    }
+
+    public function bills()
+    {
+        return $this->hasMany(Bill::class, 'campaign_id', 'id');
     }
 
     //Many-To-Many Relationships
     public function services()
     {
-        return $this->belongsToMany(Service::class , CampaignsServices::class ,  'campaign_id' , 'service_id');
+        return $this->belongsToMany(Service::class, CampaignsServices::class,  'campaign_id', 'service_id');
     }
 
     public function donors()
     {
-        return $this->belongsToMany(Donor::class , CampaignsDonors::class ,  'campaign_id' , 'donor_id');
+        return $this->belongsToMany(Donor::class, CampaignsDonors::class,  'campaign_id', 'donor_id');
     }
 
     public function beneficiaries()
     {
-        return $this->belongsToMany(beneficiary::class , CampaignsBeneficiaries::class ,  'campaign_id' , 'beneficiary_id');
+        return $this->belongsToMany(beneficiary::class, CampaignsBeneficiaries::class,  'campaign_id', 'beneficiary_id');
     }
 
 

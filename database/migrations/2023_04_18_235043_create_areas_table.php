@@ -13,12 +13,7 @@ return new class extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 30);
-
-            // $table->foreignId('city_id')->constrained('cities' , 'id');
-
-            // $table->unsignedBigInteger('city_id')->nullable();
-            // $table->foreign('city_id')->references('id')->on('cities')->nullOnDelete();
+            $table->string('name');
 
             $table->foreignId('city_id')
                 ->nullable()

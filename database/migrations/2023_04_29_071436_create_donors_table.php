@@ -18,8 +18,13 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignId('area_id');
-            $table->foreign('area_id')->references('id')->on('areas')->onDelete('RESTRICT');
+
+            $table->foreignId('area_id')
+                ->nullable()
+                ->constrained('areas')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
             $table->softDeletes();
             $table->timestamps();
         });

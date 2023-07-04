@@ -19,6 +19,8 @@ class AdminResource extends JsonResource
             'username' => $this->username,
             'email' => $this->email,
             'password' => $this->password,
+            "campaigns_count" => count($this->campaigns),
+            "operations_count" => count($this->operations),
         ];
     }
 }

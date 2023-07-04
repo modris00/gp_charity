@@ -11,7 +11,10 @@ class Supplier extends Model
 {
     use HasFactory, SoftDeletes;
 
-    // public $timestamps = false;
+    public function bills()
+    {
+        return $this->hasMany(Bill::class, 'supplier_id', 'id');
+    }
 
     //Appended Model Attribute
     public function fullMobile(): Attribute
@@ -19,33 +22,9 @@ class Supplier extends Model
         return new Attribute(get: fn () => !is_null($this->phone) ? "+" . $this->phone : "N/A");
     }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'phone',
         'address',
     ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    // protected $hidden = [
-    //     'password',
-    //     'remember_token',
-    // ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    // protected $casts = [
-    //     'email_verified_at' => 'datetime',
-    // ];
 }

@@ -15,9 +15,20 @@ return new class extends Migration
             $table->id();
             $table->float('amount');
             $table->string('description');
-            $table->enum('status' , ['finished', 'not_finished']);
-            $table->foreignId("beneficiary_id")->constrained(); // FK
-            $table->foreignId("campaign_id")->constrained(); // FK
+            $table->enum('status', ['finished', 'not_finished']);
+
+            $table->foreignId('campaign_id')
+                ->nullable()
+                ->constrained('campaigns')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
+            $table->foreignId('beneficiary_id')
+                ->nullable()
+                ->constrained('beneficiaries')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
             $table->softDeletes();
             $table->timestamps();
         });

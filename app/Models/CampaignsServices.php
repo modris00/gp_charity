@@ -10,14 +10,13 @@ class CampaignsServices extends Model
 {
     use HasFactory, SoftDeletes;
 
-        /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+    public function bills()
+    {
+        return $this->hasMany(Bill::class, 'campaign_service_id', 'id');
+    }
+
     protected $hidden = [
         'created_at',
         'updated_at',
     ];
-
 }

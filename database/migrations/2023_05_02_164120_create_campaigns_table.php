@@ -13,14 +13,23 @@ return new class extends Migration
     {
         Schema::create('campaigns', function (Blueprint $table) {
             $table->id();
-            $table->string('title' , 100);
+            $table->string('title', 100);
             $table->float('amount');
-            $table->enum('status' , ["Finished" , "Not Finished"]);
+            $table->enum('status', ["Finished", "Not Finished"]);
             $table->string('start_date');
             $table->string('end_date');
 
-            $table->foreignId("admin_id")->constrained(); // FK
-            $table->foreignId("currency_id")->constrained(); // FK
+            $table->foreignId('admin_id')
+                ->nullable()
+                ->constrained('admins')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
+            $table->foreignId('currency_id')
+                ->nullable()
+                ->constrained('currencies')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
 
             $table->softDeletes();
             $table->timestamps();

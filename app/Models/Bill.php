@@ -18,4 +18,24 @@ class Bill extends Model
         'currency_id',
         'campaign_service_id'
     ];
+
+    public function campaign()
+    {
+        return $this->belongsTo(Campaign::class);
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
+    }
+
+    public function campaignService()
+    {
+        return $this->belongsTo(CampaignsServices::class);
+    }
 }

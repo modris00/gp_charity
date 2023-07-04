@@ -65,6 +65,7 @@ Route::delete('/faqs/{faq}/force-delete', [FaqController::class, 'forceDelete'])
  * Suppliers
  */
 Route::apiResource("suppliers", SupplierController::class);
+Route::get('/suppliers/archive', [SupplierController::class, 'Archives']);
 Route::put('/suppliers/{supplier}/restore', [SupplierController::class, 'restore']);
 Route::delete('/suppliers/{supplier}/force-delete', [SupplierController::class, 'forceDelete']);
 /** End */

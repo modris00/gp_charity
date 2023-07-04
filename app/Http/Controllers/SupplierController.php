@@ -107,6 +107,17 @@ class SupplierController extends Controller
     /**
      * Determine whether the user can restore the model.
      */
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $suppliers = Supplier::onlyTrashed()->get();
+        $data = SupplierResource::collection($suppliers);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data]);
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     */
     public function restore(Request $request, $id): Response
     {
         $supplier = Supplier::onlyTrashed()->findOrFail($id);

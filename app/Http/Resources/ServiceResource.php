@@ -14,16 +14,25 @@ class ServiceResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        $data = [
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
             'active' => $this->active,
             'image' => $this->image,
-            'sub_category_name' => $this->subcategories->name,
-            'sub_category' => $this->subcategory,
+
             "operations_count" => count($this->operations),
             // "campaigns_count" => count($this->campaigns),
         ];
+
+        if (is_null($this->subCategory)) {
+            $data['sub_category'] = $this->subCategory; //null
+
+        } else {
+            $data['sub_category_name'] = $this->subCategory->name;
+            $data['sub_category_id'] = $this->subCategory->id;
+        }
+
+        return $data;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SubCategoryResource;
 use App\Http\Resources\SubCategoryResourceCollection;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -15,10 +16,11 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        // Eloquent
-        // $subcategory = SubCategory::all();
-        $subcategory = SubCategory::with('Category')->get();
-        return new SubCategoryResourceCollection($subcategory);
+        // $subCategories = SubCategory::with('category')->get();
+        // return new SubCategoryResourceCollection($subCategories);
+        // $subCategories = SubCategory::all();
+        $subCategories = SubCategoryResource::collection(SubCategory::all());
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $subCategories]);
     }
 
     /**

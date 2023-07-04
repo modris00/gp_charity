@@ -19,8 +19,6 @@ class CountryResource extends JsonResource
             'name' => $this->name,
             'created_at' => date_format($this->created_at, 'Y-m-d H:i:s'),
             'cities_count' => count($this->cities),
-            'cities' => $this->cities,
-
         ];
     }
 }

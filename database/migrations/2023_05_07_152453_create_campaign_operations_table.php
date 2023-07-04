@@ -16,10 +16,26 @@ return new class extends Migration
             $table->date("date");
             $table->mediumText("description");
             $table->float("cost");
-            $table->enum("cost_type",['Primary','Additional']);
-            $table->foreignId("admin_id")->constrained()->onDelete('RESTRICT');
-            $table->foreignId("campaign_id")->constrained()->onDelete('RESTRICT');
-            $table->foreignId("service_id")->constrained()->onDelete("RESTRICT");
+            $table->enum("cost_type", ['Primary', 'Additional']);
+
+            $table->foreignId('admin_id')
+                ->nullable()
+                ->constrained('admins')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
+            $table->foreignId('campaign_id')
+                ->nullable()
+                ->constrained('campaigns')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
+            $table->foreignId('service_id')
+                ->nullable()
+                ->constrained('services')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
             $table->timestamps();
             $table->softDeletes();
         });

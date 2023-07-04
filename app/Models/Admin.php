@@ -21,11 +21,7 @@ class Admin extends Authenticatable
         return $this->hasMany(CampaignOperations::class, "admin_id", "id");
     }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+
     protected $hidden = [
         'password',
         'created_at',

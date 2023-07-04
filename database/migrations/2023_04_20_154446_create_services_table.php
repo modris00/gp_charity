@@ -13,11 +13,17 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 45);
+            $table->string('name');
             $table->text('description')->nullable();
             $table->boolean('active');
-            $table->string('image', 150)->nullable();
-            $table->foreignId("sub_category_id")->constrained(); // FK
+            $table->string('image')->nullable();
+
+            $table->foreignId('sub_category_id')
+                ->nullable()
+                ->constrained('sub_categories')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
             $table->softDeletes();
             $table->timestamps();
         });

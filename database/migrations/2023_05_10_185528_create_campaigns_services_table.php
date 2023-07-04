@@ -18,8 +18,19 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->boolean('status');
-            $table->foreignId("service_id")->constrained(); // FK
-            $table->foreignId("campaign_id")->constrained(); // FK
+
+            $table->foreignId('service_id')
+                ->nullable()
+                ->constrained('services')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
+            $table->foreignId('campaign_id')
+                ->nullable()
+                ->constrained('campaigns')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
             $table->softDeletes();
             $table->timestamps();
         });

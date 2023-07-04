@@ -17,15 +17,35 @@ return new class extends Migration
             $table->string("image")->nullable();
             $table->text("description");
 
-            $table->foreignId("campaign_id")->constrained()->restrictOnDelete()->restrictOnUpdate(); // FK
-            $table->foreignId("supplier_id")->constrained()->restrictOnDelete()->restrictOnUpdate(); // FK
-            $table->foreignId("currency_id")->constrained()->restrictOnDelete()->restrictOnUpdate(); // FK
+            $table->foreignId('campaign_id')
+                ->nullable()
+                ->constrained('campaigns')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
 
-            $table->unsignedBigInteger("campaign_service_id");
-            $table->foreign("campaign_service_id")->references("id")->on("campaigns_services")->restrictOnDelete();
+            $table->foreignId('supplier_id')
+                ->nullable()
+                ->constrained('suppliers')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
+            $table->foreignId('currency_id')
+                ->nullable()
+                ->constrained('currencies')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
+            $table->foreignId('campaign_service_id')
+                ->nullable()
+                ->constrained('campaigns_services')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
 
             $table->softDeletes();
             $table->timestamps();
+
+            // $table->unsignedBigInteger("campaign_service_id");
+            // $table->foreign("campaign_service_id")->references("id")->on("campaigns_services")->restrictOnDelete();
         });
     }
 

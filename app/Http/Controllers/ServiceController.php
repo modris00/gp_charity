@@ -46,7 +46,7 @@ class ServiceController extends Controller
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $image_name = time() . $services->name . $image->getClientOriginalName();
-                $request->file('image')->storePubliclyAs('services_images', $image_name, ['disk' => 'public']);
+                $request->file('image')->storePubliclyAs('services', $image_name, ['disk' => 'public']);
                 $services->image = $image_name;
             }
             $services->sub_category_id = $request->input('sub_category_id');

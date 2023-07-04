@@ -14,8 +14,19 @@ return new class extends Migration
         Schema::create('campaigns_donors', function (Blueprint $table) {
             $table->id();
             $table->float('amount');
-            $table->foreignId("donor_id")->constrained(); // FK
-            $table->foreignId("campaign_id")->constrained(); // FK
+
+            $table->foreignId('donor_id')
+                ->nullable()
+                ->constrained('donors')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
+            $table->foreignId('campaign_id')
+                ->nullable()
+                ->constrained('campaigns')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
             $table->softDeletes();
             $table->timestamps();
         });

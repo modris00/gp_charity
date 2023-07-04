@@ -21,6 +21,7 @@ class SupplierResource extends JsonResource
             "phone" => $this->phone,
             "address" => $this->address,
             "created_at" => Carbon::parse($this->created_at)->diffForHumans(),
+            "bills_count" => count($this->bills),
         ];
     }
 }

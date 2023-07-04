@@ -13,10 +13,16 @@ return new class extends Migration
     {
         Schema::create('campaign_images', function (Blueprint $table) {
             $table->id();
-            $table->string('image' , 100);
+            $table->string('image');
             $table->text('description');
             $table->boolean('active');
-            $table->foreignId("campaign_id")->constrained(); // FK
+
+            $table->foreignId('campaign_id')
+                ->nullable()
+                ->constrained('campaigns')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
             $table->softDeletes();
             $table->timestamps();
         });

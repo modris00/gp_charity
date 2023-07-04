@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("phone", 15)->nullable();
+            $table->string("phone")->nullable();
             $table->string("address");
 
             $table->softDeletes();

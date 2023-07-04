@@ -19,6 +19,7 @@ class CurrencyResource extends JsonResource
             'name' => $this->name,
             'abbreviation' => $this->abbreviation,
             'campaigns_count' => count($this->campaigns),
+            "bills_count" => count($this->bills),
         ];
     }
 }

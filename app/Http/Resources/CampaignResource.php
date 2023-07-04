@@ -14,15 +14,44 @@ class CampaignResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        // return [
+        //     'id' => $this->id,
+        //     'title' => $this->title,
+        //     'amount' => $this->amount,
+        //     'status' => $this->status,
+        //     'start_date' => $this->start_date,
+        //     'end_date' => $this->end_date,
+        //     'admin' => $this->admin,
+        //     'currency' => $this->currency,
+        // ];
+
+        $data = [
             'id' => $this->id,
             'title' => $this->title,
             'amount' => $this->amount,
             'status' => $this->status,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
-            'admin' => $this->admin,
-            'currency' => $this->currency,
+
+            "bills_count" => count($this->bills),
+            "operations_count" => count($this->operations),
+            "campaignImages_count" => count($this->campaignImages),
         ];
+
+        if (!is_null($this->admin)) {
+            $data['admin_id'] = $this->admin->id;
+            $data['admin_name'] = $this->admin->name;
+        } else {
+            $data['admin'] = $this->admin; //null for sure
+        }
+
+        if (!is_null($this->currency)) {
+            $data['currency_id'] = $this->currency->id;
+            $data['currency_name'] = $this->currency->name;
+        } else {
+            $data['currency'] = $this->currency; //null for sure
+        }
+
+        return $data;
     }
 }

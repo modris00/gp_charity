@@ -10,7 +10,7 @@ class Service extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function subcategory()
+    public function subCategory()
     {
         return $this->belongsTo(SubCategory::class, 'sub_category_id', 'id');
     }

@@ -45,7 +45,7 @@ class SupplierController extends Controller
 
         if (!$validator->fails()) {
             $supplier = Supplier::create($request->all());
-            return response()->json(['status' => !is_null($supplier), 'object' => $supplier]);
+            return response()->json(['status' => !is_null($supplier), "message" => "Created Successfully", 'object' => $supplier]);
 
             // $supplier = new Supplier();
             // $supplier->name = $request->input("name");

@@ -123,6 +123,15 @@ class CityController extends Controller
         }
     }
 
+
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $city = City::onlyTrashed()->get();
+        $data = CityResource::collection($city);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
+    }
+
     /**
      * Determine whether the user can restore the model.
      */

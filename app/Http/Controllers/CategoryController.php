@@ -101,6 +101,15 @@ class CategoryController extends Controller
             $deleted ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST
         );
     }
+
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $category = Category::onlyTrashed()->get();
+        $data = CategoryResource::collection($category);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
+    }
+
     /**
      * Determine whether the user can restore the model.
      */

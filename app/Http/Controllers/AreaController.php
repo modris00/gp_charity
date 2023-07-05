@@ -120,6 +120,17 @@ class AreaController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
     }
+
+
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $area = Area::onlyTrashed()->get();
+        $data = AreaResource::collection($area);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
+    }
+
+
     /**
      * Determine whether the user can restore the model.
      */

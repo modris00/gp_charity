@@ -115,6 +115,14 @@ class DonorController extends Controller
         }
     }
 
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $donor = Donor::onlyTrashed()->get();
+        $data = DonorResource::collection($donor);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

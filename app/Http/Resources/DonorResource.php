@@ -32,6 +32,8 @@ class DonorResource extends JsonResource
             'username' => $this->username,
             'email' => $this->email,
             'phone' => $this->phone,
+            'created_at' => $this->created_at ? date_format($this->created_at, 'Y-m-d H:i:s') : null,
+            'deleted_at' => $this->deleted_at ? date_format($this->deleted_at, 'Y-m-d H:i:s') : null,
             // 'campaigns_count' => count($this->campaigns),
             // 'contact_requests_count' => count($this->ContactRequests),
         ];

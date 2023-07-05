@@ -75,7 +75,7 @@ class ContactRequestController extends Controller
      */
     public function update(Request $request, ContactRequest $contactRequest)
     {
-        $this->authorize('update', $contactRequest);
+        // $this->authorize('update', $contactRequest);
 
         $validator = Validator($request->all(), [
             'response' => 'nullable|string|max:150',

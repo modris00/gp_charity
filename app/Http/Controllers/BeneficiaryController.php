@@ -65,10 +65,10 @@ class BeneficiaryController extends Controller
             //     $role = Role::findById(2); //User-Beneficiary
             //     $beneficiary->assignRole($role);
             // }
-            if ($saved) {
-                // $admin->syncRoles(Role::findById($request->input('role_id'), 'admin'));
-                $beneficiary->syncRoles(Role::findById(2, 'beneficiary'));
-            }
+            // if ($saved) {
+            //     // $admin->syncRoles(Role::findById($request->input('role_id'), 'admin'));
+            //     $beneficiary->syncRoles(Role::findById(2, 'beneficiary'));
+            // }
             return new Response([
                 'object' => $beneficiary,
                 'message' => $beneficiary ? 'Created successfuly' : 'error adding',
@@ -160,6 +160,14 @@ class BeneficiaryController extends Controller
 
             ], Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $beneficiary = Beneficiary::onlyTrashed()->get();
+        $data = BeneficiaryResource::collection($beneficiary);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
     }
 
     /**

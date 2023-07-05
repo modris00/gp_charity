@@ -56,6 +56,7 @@ Route::get('/cache-clear', function () {
 /**
  * Faqs
  */
+Route::get('/faqs/archive', [FaqController::class, 'Archives']);
 Route::apiResource("faqs", FaqController::class);
 Route::put('/faqs/{faq}/restore', [FaqController::class, 'restore']);
 Route::delete('/faqs/{faq}/force-delete', [FaqController::class, 'forceDelete']);
@@ -116,6 +117,7 @@ Route::delete('/sub-categories/{subCategory}/force-delete', [SubCategoryControll
 /**
  * Services
  */
+Route::get('/services/archive', [ServiceController::class, 'Archives']);
 Route::apiResource('services', ServiceController::class);
 Route::put('/services/{service}/restore', [ServiceController::class, 'restore']);
 Route::delete('/services/{service}/force-delete', [ServiceController::class, 'forceDelete']);
@@ -159,6 +161,7 @@ Route::delete('/donors/{donor}/force-delete', [DonorController::class, 'forceDel
 /**
  * Beneficiaries
  */
+Route::get('/beneficiaries/archive', [BeneficiaryController::class, 'Archives']);
 Route::apiResource('beneficiaries', BeneficiaryController::class);
 Route::put('/beneficiaries/{beneficiary}/restore', [BeneficiaryController::class, 'restore']);
 Route::delete('/beneficiaries/{beneficiary}/force-delete', [BeneficiaryController::class, 'forceDelete']);
@@ -185,6 +188,7 @@ Route::put('/bills/{bill}/restore', [BillController::class, 'restore']);
  * Campaigns Operations
  * (Multi-Word)
  */
+Route::get('/campaign-operations/archive', [CampaignOperationsController::class, 'Archives']);
 Route::apiResource('campaign-operations', CampaignOperationsController::class);
 Route::get("campaign-operations/{campaignOperation}/restore", [CampaignOperationsController::class, 'restore']);
 Route::delete("campaign-operations/{campaignOperation}/forceDelete", [CampaignOperationsController::class, 'forceDelete']);

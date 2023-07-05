@@ -39,7 +39,7 @@ class BillController extends Controller
         $validator = Validator($request->all(), [
             "cost" => "required|numeric",
             "description" => "required|max:150",
-            "image" => 'nullabe|image|mimes:jpeg,png,jpg,gif',
+            "image" => 'nullable|image|mimes:jpeg,png,jpg,gif',
             "campaign_id" => "required|numeric|exists:campaigns,id",
             "supplier_id" => "required|numeric|exists:supplier,id",
             "currency_id" => "required|numeric|exists:currency,id",

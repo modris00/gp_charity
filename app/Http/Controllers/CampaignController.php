@@ -86,8 +86,8 @@ class CampaignController extends Controller
             'title' => 'required|string|max:255',
             'amount' => 'required|numeric|min:0',
             'status' => 'required|in:Finished,Not Finished',
-            'start_date' => 'required|date|after_or_equal:today',
-            'end_date' => 'required|date|after:start_date',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
             'admin_id' => 'required|exists:admins,id',
             'currency_id' => 'required|exists:currencies,id',
         ]);
@@ -101,7 +101,7 @@ class CampaignController extends Controller
             $campaign->status = $request->input('status');
             $campaign->start_date = $request->input('start_date');
             $campaign->end_date = $request->input('end_date');
-            $campaign->admin_id = $request->input('admin_id');
+            $campaign->admin_id = 1;
             $campaign->currency_id = $request->input('currency_id');
             $update = $campaign->save();
             return new Response(

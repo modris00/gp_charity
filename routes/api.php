@@ -109,6 +109,7 @@ Route::delete('/categories/{category}/force-delete', [CategoryController::class,
  * subCategories
  * (Multi-Word)
  */
+Route::get('/sub-categories/archive', [SubCategoryController::class, 'Archives']);
 Route::apiResource('sub-categories', SubCategoryController::class);
 Route::put('/sub-categories/{subCategory}/restore', [SubCategoryController::class, 'restore']);
 Route::delete('/sub-categories/{subCategory}/force-delete', [SubCategoryController::class, 'forceDelete']);
@@ -135,6 +136,7 @@ Route::delete('/admins/{admin}/force-delete', [AdminController::class, 'forceDel
 /**
  * Currencies
  */
+Route::get('/currencies/archive', [CurrencyController::class, 'Archives']);
 Route::apiResource('currencies', CurrencyController::class);
 Route::put('/currencies/{currency}/restore', [CurrencyController::class, 'restore']);
 Route::delete('/currencies/{currency}/force-delete', [CurrencyController::class, 'forceDelete']);
@@ -191,7 +193,7 @@ Route::put('/bills/{bill}/restore', [BillController::class, 'restore']);
  */
 Route::get('/campaign-operations/archive', [CampaignOperationsController::class, 'Archives']);
 Route::apiResource('campaign-operations', CampaignOperationsController::class);
-Route::get("campaign-operations/{campaignOperation}/restore", [CampaignOperationsController::class, 'restore']);
+Route::put("campaign-operations/{campaignOperation}/restore", [CampaignOperationsController::class, 'restore']);
 Route::delete("campaign-operations/{campaignOperation}/forceDelete", [CampaignOperationsController::class, 'forceDelete']);
 /** End */
 
@@ -217,8 +219,9 @@ Route::delete("campaigns-services/{campaignService}/forceDelete", [CampaignsServ
  * Campaigns-Donors
  * (Multi-Word)
  */
+Route::get('/campaigns-donors/archive', [CampaignsDonorsController::class, 'Archives']);
 Route::apiResource('campaigns-donors', CampaignsDonorsController::class);
-Route::get("campaigns-donors/{campaignDonor}/restore", [CampaignsDonorsController::class, 'restore']);
+Route::put("campaigns-donors/{campaignDonor}/restore", [CampaignsDonorsController::class, 'restore']);
 Route::delete("campaigns-donors/{campaignDonor}/forceDelete", [CampaignsDonorsController::class, 'forceDelete']);
 /** End */
 

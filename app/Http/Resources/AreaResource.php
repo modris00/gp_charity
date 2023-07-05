@@ -31,7 +31,7 @@ class AreaResource extends JsonResource
             "beneficiaries_count" => count($this->beneficiaries),
         ];
 
-        if (!is_null($this->category)) {
+        if (!is_null($this->city)) {
             $data['city_id'] = $this->city->id;
             $data['city_name'] = $this->city->name;
         } else {

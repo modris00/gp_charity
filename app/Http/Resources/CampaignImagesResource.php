@@ -14,12 +14,29 @@ class CampaignImagesResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        // return [
+        //     'id' => $this->id,
+        //     'description' => $this->description,
+        //     'active' => $this->active,
+        //     'image' => $this->image,
+        //     'campaign' => $this->campaign
+        // ];
+
+        $data = [
             'id' => $this->id,
             'description' => $this->description,
             'active' => $this->active,
             'image' => $this->image,
-            'campaign' => $this->campaign
+            // 'campaign' => $this->campaign
         ];
+
+        if (!is_null($this->campaign)) {
+            $data['campaign_id'] = $this->campaign->id;
+            $data['campaign_title'] = $this->campaign->title;
+        } else {
+            $data['campaign'] = $this->campaign; //null for sure
+        }
+
+        return $data;
     }
 }

@@ -18,6 +18,7 @@ class BillResource extends JsonResource
         $data = [
             "cost" => $this->cost,
             "description" => $this->description,
+            'created_at' => date_format($this->created_at, 'Y-m-d H:i:s'),
         ];
 
         if (!is_null($this->campaign)) {

@@ -120,7 +120,7 @@ class DonorController extends Controller
         // $this->authorize('restore', $supplier);
         $donor = Donor::onlyTrashed()->get();
         $data = DonorResource::collection($donor);
-        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
     }
 
     /**

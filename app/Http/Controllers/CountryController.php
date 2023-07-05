@@ -120,6 +120,14 @@ class CountryController extends Controller
         }
     }
 
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $country = Country::onlyTrashed()->get();
+        $data = CountryResource::collection($country);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
+    }
+
     /**
      * Determine whether the user can restore the model.
      */

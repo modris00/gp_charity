@@ -64,8 +64,8 @@ Route::delete('/faqs/{faq}/force-delete', [FaqController::class, 'forceDelete'])
 /**
  * Suppliers
  */
-Route::apiResource("suppliers", SupplierController::class);
 Route::get('/suppliers/archive', [SupplierController::class, 'Archives']);
+Route::apiResource("suppliers", SupplierController::class);
 Route::put('/suppliers/{supplier}/restore', [SupplierController::class, 'restore']);
 Route::delete('/suppliers/{supplier}/force-delete', [SupplierController::class, 'forceDelete']);
 /** End */
@@ -73,6 +73,7 @@ Route::delete('/suppliers/{supplier}/force-delete', [SupplierController::class, 
 /**
  * Countries
  */
+Route::get('/countries/archive', [CountryController::class, 'Archives']);
 Route::apiResource('countries', CountryController::class);
 Route::put('/countries/{country}/restore', [CountryController::class, 'restore']);
 Route::delete('/countries/{country}/force-delete', [CountryController::class, 'forceDelete']);
@@ -81,12 +82,14 @@ Route::delete('/countries/{country}/force-delete', [CountryController::class, 'f
 /**
  * Cities
  */
+Route::get('/cities/archive', [CityController::class, 'Archives']);
 Route::apiResource('cities', CityController::class);
 Route::put('/cities/{city}/restore', [CityController::class, 'restore']);
 Route::delete('/cities/{city}/force-delete', [CityController::class, 'forceDelete']);
 /** End */
 
 /** Areas */
+Route::get('/areas/archive', [AreaController::class, 'Archives']);
 Route::apiResource('areas', AreaController::class);
 Route::put('/areas/{area}/restore', [AreaController::class, 'restore']);
 Route::delete('/areas/{area}/force-delete', [AreaController::class, 'forceDelete']);
@@ -95,6 +98,7 @@ Route::delete('/areas/{area}/force-delete', [AreaController::class, 'forceDelete
 /**
  * Categories
  */
+Route::get('/categories/archive', [CategoryController::class, 'Archives']);
 Route::apiResource('categories', CategoryController::class);
 Route::put('/categories/{category}/restore', [CategoryController::class, 'restore']);
 Route::delete('/categories/{category}/force-delete', [CategoryController::class, 'forceDelete']);
@@ -120,6 +124,7 @@ Route::delete('/services/{service}/force-delete', [ServiceController::class, 'fo
 /**
  * Admins
  */
+Route::get('/admins/archive', [AdminController::class, 'Archives']);
 Route::apiResource('admins', AdminController::class);
 Route::put('/admins/{admin}/restore', [AdminController::class, 'restore']);
 Route::delete('/admins/{admin}/force-delete', [AdminController::class, 'forceDelete']);
@@ -136,6 +141,7 @@ Route::delete('/currencies/{currency}/force-delete', [CurrencyController::class,
 /**
  * Campaigns
  */
+Route::get('/campaigns/archive', [CampaignController::class, 'Archives']);
 Route::apiResource('campaigns', CampaignController::class);
 Route::put('/campaigns/{campaign}/restore', [CampaignController::class, 'restore']);
 Route::delete('/campaigns/{campaign}/force-delete', [CampaignController::class, 'forceDelete']);
@@ -144,6 +150,7 @@ Route::delete('/campaigns/{campaign}/force-delete', [CampaignController::class, 
 /**
  * Donors
  */
+Route::get('/donors/archive', [DonorController::class, 'Archives']);
 Route::apiResource('donors', DonorController::class);
 Route::put('/donors/{donor}/restore', [DonorController::class, 'restore']);
 Route::delete('/donors/{donor}/force-delete', [DonorController::class, 'forceDelete']);

@@ -14,10 +14,11 @@ class CountryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return  [
+        return [
             'id' => $this->id,
             'name' => $this->name,
-            'created_at' => date_format($this->created_at, 'Y-m-d H:i:s'),
+            'created_at' => $this->created_at ? date_format($this->created_at, 'Y-m-d H:i:s') : null,
+            'deleted_at' => $this->deleted_at ? date_format($this->deleted_at, 'Y-m-d H:i:s') : null,
             'cities_count' => count($this->cities),
         ];
     }

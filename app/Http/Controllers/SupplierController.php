@@ -112,7 +112,7 @@ class SupplierController extends Controller
         // $this->authorize('restore', $supplier);
         $suppliers = Supplier::onlyTrashed()->get();
         $data = SupplierResource::collection($suppliers);
-        return response()->json(['status' => true, 'message' => 'success', 'data' => $data]);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
     }
 
     /**

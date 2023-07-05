@@ -128,6 +128,14 @@ class CampaignController extends Controller
         );
     }
 
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $campaign = Campaign::onlyTrashed()->get();
+        $data = CampaignResource::collection($campaign);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
+    }
+
     /**
      * Determine whether the user can restore the model.
      */

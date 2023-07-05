@@ -23,6 +23,8 @@ class AdminResource extends JsonResource
 
             "campaigns_count" => count($this->campaigns),
             "operations_count" => count($this->operations),
+            'created_at' => $this->created_at ? date_format($this->created_at, 'Y-m-d H:i:s') : null,
+            'deleted_at' => $this->deleted_at ? date_format($this->deleted_at, 'Y-m-d H:i:s') : null,
         ];
     }
 }

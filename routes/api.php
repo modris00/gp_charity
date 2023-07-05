@@ -168,6 +168,7 @@ Route::delete('/beneficiaries/{beneficiary}/force-delete', [BeneficiaryControlle
  * Contact-Requests
  * (Multi-Word)
  */
+Route::get('/contact-requests/archive', [ContactRequestController::class, 'Archives']);
 Route::apiResource('contact-requests', ContactRequestController::class);
 Route::delete('/contact-requests/{contactRequest}/force-delete', [ContactRequestController::class, 'forceDelete']);
 Route::put('/contact-requests/{contactRequest}/restore', [ContactRequestController::class, 'restore']);

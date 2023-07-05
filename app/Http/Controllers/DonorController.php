@@ -50,10 +50,10 @@ class DonorController extends Controller
             $donor->password = Hash::make($request->input('password'));
             $donor->area_id = $request->input('area_id');
             $saved = $donor->save();
-            if ($saved) {
-                $role = Role::findById(3); //User-Donor
-                $donor->assignRole($role);
-            }
+            // if ($saved) {
+            //     $role = Role::findById(3); //User-Donor
+            //     $donor->assignRole($role);
+            // }
             return new Response([
                 'object' => $donor,
                 'message' => $donor ? 'Created successfuly' : 'error adding',

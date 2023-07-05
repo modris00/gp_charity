@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('password');
             $table->integer('age')->nullable();
             $table->enum('gender', ['Male', 'Female']);
-            $table->foreignId('area_id');
 
             $table->foreignId('area_id')
                 ->nullable()

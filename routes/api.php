@@ -253,3 +253,6 @@ Route::apiResource('permissions', PermissionController::class);
 
 Route::put('/roles/{role}/permission/{permission}', [RoleController::class, 'updateRolePermission']);
 // });
+
+
+

@@ -158,4 +158,7 @@ class CampaignController extends Controller
         $deleted = $campaign->forceDelete();
         return new Response(['status' => $deleted]);
     }
+
+
+    
 }

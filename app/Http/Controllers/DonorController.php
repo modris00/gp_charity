@@ -19,6 +19,7 @@ class DonorController extends Controller
      */
     public function index()
     {
+        // $this->authorize('viewAny' ,  Donor::class);
         $donor = Donor::latest()->Paginate(10);
         return new DonorResourceCollection($donor);
     }
@@ -28,6 +29,7 @@ class DonorController extends Controller
      */
     public function store(Request $request)
     {
+        // $this->authorize('create' ,  Donor::class);
 
         $valditor = validator($request->all(), [
 
@@ -73,7 +75,7 @@ class DonorController extends Controller
      */
     public function show(Donor $donor)
     {
-        //
+        // $this->authorize('view' ,  $donor);
         return new DonorResource($donor);
     }
 
@@ -94,6 +96,7 @@ class DonorController extends Controller
 
         if (!$valditor->fails()) {
             $donor = Donor::findorfail($id);
+            // $this->authorize('update' ,  $donor);
             $donor->name = $request->input('name');
             $donor->phone = $request->input('phone');
             $donor->username = $request->input('username');
@@ -117,7 +120,7 @@ class DonorController extends Controller
 
     public function Archives()
     {
-        // $this->authorize('restore', $supplier);
+        // $this->authorize('restore' ,  Donor::class);
         $donor = Donor::onlyTrashed()->get();
         $data = DonorResource::collection($donor);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
@@ -129,6 +132,7 @@ class DonorController extends Controller
     public function destroy($id)
     {
         $donor = Donor::findorfail($id);
+        // $this->authorize('delete' ,  $donor);
         $donor->delete();
 
         if ($donor) {
@@ -157,6 +161,7 @@ class DonorController extends Controller
     {
         //
         $donor = Donor::onlyTrashed()->findOrFail($id);
+        // $this->authorize('restore' ,  $donor);
         $restored = $donor->restore();
         return new Response(['status' => $restored]);
     }
@@ -168,6 +173,7 @@ class DonorController extends Controller
     {
         //
         $donor = Donor::withTrashed()->findOrFail($id);
+         // $this->authorize('forceDelete' ,  $donor);
         $deleted = $donor->forceDelete();
         return new Response(['status' => $deleted]);
     }

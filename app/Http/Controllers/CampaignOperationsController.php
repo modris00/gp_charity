@@ -111,6 +111,16 @@ class CampaignOperationsController extends Controller
         return new Response(["status" => $deleted, "message" => "deleted is successfully"], Response::HTTP_OK);
     }
 
+
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $donor = CampaignOperations::onlyTrashed()->get();
+        $data = CampaignOperationsResource::collection($donor);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
+    }
+
+
     /**
      * Determine whether the user can restore the model.
      */

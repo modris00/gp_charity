@@ -107,6 +107,14 @@ class ServiceController extends Controller
         }
     }
 
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $admin = Service::onlyTrashed()->get();
+        $data = ServiceResource::collection($admin);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

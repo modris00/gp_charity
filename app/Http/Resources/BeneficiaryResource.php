@@ -21,7 +21,8 @@ class BeneficiaryResource extends JsonResource
             'email' => $this->email,
             'age' => $this->age,
             'gender' => $this->gender,
-            'created_at' => date_format($this->created_at, 'Y-m-d H:i:s'),
+            'created_at' => $this->created_at ? date_format($this->created_at, 'Y-m-d H:i:s') : null,
+            'deleted_at' => $this->deleted_at ? date_format($this->deleted_at, 'Y-m-d H:i:s') : null,
 
             // 'contactRequests_count' => count($this->contactRequests),
             // 'campaigns_count' => count($this->campaigns),

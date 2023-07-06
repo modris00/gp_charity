@@ -21,6 +21,7 @@ class FaqController extends Controller
      */
     public function index()
     {
+
         // $this->authorize('viewAny', Faq::class);
 
         $faqs = Faq::simplePaginate(10);
@@ -34,8 +35,8 @@ class FaqController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create', Faq::class);
 
+      //  $this->authorize('create', Faq::class);
         $validator = validator($request->all(), [
             "question" => "string|required|min:5|max:100",
             "answer" => "string|required|min:5|max:250",
@@ -99,10 +100,18 @@ class FaqController extends Controller
      */
     public function destroy(Faq $faq)
     {
-        // $this->authorize('delete', $faq);
+        //$this->authorize('delete', $faq);
 
         $deleted = $faq->delete();
         return new Response(["status" => $deleted, "message" => "successfully deleted"], Response::HTTP_OK);
+    }
+
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $Faq = Faq::onlyTrashed()->get();
+        $data = FaqResource::collection($Faq);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
     }
 
     /**
@@ -111,7 +120,8 @@ class FaqController extends Controller
     public function restore(Request $request, $id): Response
     {
         $faq = Faq::onlyTrashed()->findOrFail($id);
-        // $this->authorize('restore', $faq);
+
+      //  $this->authorize('restore', $faq);
 
         $restored = $faq->restore();
         return new Response(['status' => $restored]);

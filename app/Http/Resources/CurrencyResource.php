@@ -22,7 +22,8 @@ class CurrencyResource extends JsonResource
             //'campaigns_count' => $this->whenLoaded("campaigns_count"),
             //'campaigns_count' => $this->whenLoaded("campaigns")->count(),
             // "bills_count" => count($this->bills),
-            'created_at' => date_format($this->created_at, 'Y-m-d H:i:s'),
+            'created_at' => $this->created_at ? date_format($this->created_at, 'Y-m-d H:i:s') : null,
+            'deleted_at' => $this->deleted_at ? date_format($this->deleted_at, 'Y-m-d H:i:s') : null,
         ];
     }
 }

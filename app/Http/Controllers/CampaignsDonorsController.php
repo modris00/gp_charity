@@ -89,6 +89,8 @@ class CampaignsDonorsController extends Controller
         }
     }
 
+
+
     /**
      * Remove the specified resource from storage.
      */
@@ -105,12 +107,22 @@ class CampaignsDonorsController extends Controller
         );
     }
 
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $CampaignsDonors = CampaignsDonors::onlyTrashed()->get();
+        $data = CampaignsDonorsResource::collection($CampaignsDonors);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
+    }
+
+    
+
     public function restore(Request $request, $id)
     {
         //
         $object = CampaignsDonors::onlyTrashed()->findOrFail($id);
         $restored = $object->restore();
-        return response()->json(['status' => $restored]);
+        return new Response(['status' => $restored]);
     }
 
     public function forceDelete(Request $request, $id)

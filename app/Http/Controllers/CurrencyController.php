@@ -111,6 +111,14 @@ class CurrencyController extends Controller
         );
     }
 
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $Currency = Currency::onlyTrashed()->get();
+        $data = CurrencyResource::collection($Currency);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
+    }
+
     /**
      * Determine whether the user can restore the model.
      */

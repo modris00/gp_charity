@@ -22,6 +22,8 @@ class CampaignsDonorsResource extends JsonResource
         $data = [
             'id' => $this->id,
             'amount' => $this->amount,
+            'created_at' => $this->created_at ? date_format($this->created_at, 'Y-m-d H:i:s') : null,
+            'deleted_at' => $this->deleted_at ? date_format($this->deleted_at, 'Y-m-d H:i:s') : null,
         ];
 
         if (!is_null($this->campaign)) {

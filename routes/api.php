@@ -201,6 +201,7 @@ Route::delete("campaign-operations/{campaignOperation}/forceDelete", [CampaignOp
  * Campaign Images
  * (Multi-Word)
  */
+Route::get('/campaign-images/archive', [CampaignImagesController::class, 'Archives']);
 Route::apiResource('campaign-images', CampaignImagesController::class);
 Route::get("campaign-images/{campaignImage}/restore", [CampaignImagesController::class, 'restore']);
 Route::delete("campaign-images/{campaignImage}/forceDelete", [CampaignImagesController::class, 'forceDelete']);
@@ -210,9 +211,11 @@ Route::delete("campaign-images/{campaignImage}/forceDelete", [CampaignImagesCont
  * Campaigns-Services
  * (Multi-Word)
  */
+Route::get('/campaigns-services/archive', [CampaignsServicesController::class, 'Archives']);
 Route::apiResource('campaigns-services', CampaignsServicesController::class);
 Route::get("campaigns-services/{campaignService}/restore", [CampaignsServicesController::class, 'restore']);
 Route::delete("campaigns-services/{campaignService}/forceDelete", [CampaignsServicesController::class, 'forceDelete']);
+
 /** End */
 
 /**

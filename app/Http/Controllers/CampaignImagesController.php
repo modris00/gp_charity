@@ -17,6 +17,7 @@ class CampaignImagesController extends Controller
     public function index()
     {
         // Eloquent
+        // $this->authorize('viewAny' , CampaignImages::class);
         // $campaignImages = CampaignImages::all();
         $campaignImages = CampaignImages::with('campaign')->paginate(10);
         return new CampaignImagesResourceCollection($campaignImages);
@@ -27,6 +28,7 @@ class CampaignImagesController extends Controller
      */
     public function store(Request $request)
     {
+        // $this->authorize('create' , CampaignImages::class);
         // validate
         $valid = Validator($request->all(), [
             'image' => 'required|image|mimes:jpeg,png,jpg,gif',
@@ -64,7 +66,7 @@ class CampaignImagesController extends Controller
      */
     public function show(CampaignImages $campaignImage)
     {
-        //
+        // $this->authorize('view' , $campaignImage);
         return new CampaignImagesResource($campaignImage);
     }
 
@@ -85,6 +87,7 @@ class CampaignImagesController extends Controller
         if (!$valid->fails()) {
             // Eloquent
             $campaignImages = CampaignImages::fidOrFail($id);
+            // $this->authorize('update' , $campaignImages);
             $campaignImages->description = $request->input('description');
             $campaignImages->active = $request->input('active');
             $campaignImages->campaign_id = $request->input('campaign_id');
@@ -112,6 +115,7 @@ class CampaignImagesController extends Controller
     {
         // Eloquent
         $campaignImages = CampaignImages::findOrFail($id);
+        // $this->authorize('delete' , $campaignImages);
         $deleted = $campaignImages->delete();
         return new Response(
             [
@@ -125,6 +129,7 @@ class CampaignImagesController extends Controller
     {
         //
         $object = CampaignImages::onlyTrashed()->findOrFail($id);
+        // $this->authorize('restore' , $object);
         $restored = $object->restore();
         return response()->json(['status' => $restored]);
     }
@@ -133,6 +138,7 @@ class CampaignImagesController extends Controller
     {
         //
         $object = CampaignImages::withTrashed()->findOrFail($id);
+        // $this->authorize('forceDelete' , $object);
         $deleted = $object->forceDelete();
         if ($deleted && $object->image) {
             // Storage::delete($object->image);

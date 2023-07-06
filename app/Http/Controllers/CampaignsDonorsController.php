@@ -16,6 +16,7 @@ class CampaignsDonorsController extends Controller
     public function index()
     {
         // Eloquent
+        // $this->authorize('viewAny' , CampaignsDonors::class);
         $campaignsDonors = CampaignsDonors::all();
         return new CampaignsDonorsResourceCollection($campaignsDonors);
     }
@@ -25,6 +26,7 @@ class CampaignsDonorsController extends Controller
      */
     public function store(Request $request)
     {
+        // $this->authorize('create' , CampaignsDonors::class);
         // validate
         $valid = Validator($request->all(), [
             'amount' => 'required|numeric|min:0',
@@ -55,7 +57,7 @@ class CampaignsDonorsController extends Controller
      */
     public function show(CampaignsDonors $campaignsDonor)
     {
-        //
+        // $this->authorize('view' , $campaignsDonor);
         return new CampaignsDonorsResource($campaignsDonor);
     }
 
@@ -75,6 +77,7 @@ class CampaignsDonorsController extends Controller
         if (!$valid->fails()) {
             // Eloquent
             $campaignsDonors = CampaignsDonors::findOrFail($id);
+            // $this->authorize('update' , $campaignsDonors);
             $campaignsDonors->amount = $request->input('amount');
             $campaignsDonors->donor_id = $request->input('donor_id');
             $campaignsDonors->campaign_id = $request->input('campaign_id');
@@ -98,6 +101,7 @@ class CampaignsDonorsController extends Controller
     {
         // Eloquent
         $campaignsDonors = CampaignsDonors::findOrFail($id);
+        // $this->authorize('delete' , $campaignsDonors);
         $deleted = $campaignsDonors->delete();
         return new Response(
             [
@@ -115,12 +119,13 @@ class CampaignsDonorsController extends Controller
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
     }
 
-    
+
 
     public function restore(Request $request, $id)
     {
         //
         $object = CampaignsDonors::onlyTrashed()->findOrFail($id);
+        // $this->authorize('restore' , $object);
         $restored = $object->restore();
         return new Response(['status' => $restored]);
     }
@@ -129,6 +134,7 @@ class CampaignsDonorsController extends Controller
     {
         //
         $object = CampaignsDonors::withTrashed()->findOrFail($id);
+        // $this->authorize('forceDelete' , $object);
         $deleted = $object->forceDelete();
         // if ($deleted && $object->image) {
         //     // Storage::delete($object->image);

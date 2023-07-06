@@ -122,6 +122,31 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
+        \App\Models\Campaign::create([
+            'title' => 'Campaign1 title name',
+            'amount' => '1000',
+            'status' => 'Finished',
+            'start_date' => now(),
+            'end_date' => now(),
+            'admin_id' => '1',
+            'currency_id' => '1',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        \App\Models\CampaignsServices::create([
+            'amount' => '2000',
+            'description' => 'description camp_serv1',
+            'status' => 1,
+            'start_date' => now(),
+            'end_date' => now(),
+
+            'campaign_id' => '1',
+            'service_id' => '1',
+
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        
         \App\Models\Bill::create([
             'cost' => '123',
             'description' => 'description bill1',
@@ -135,17 +160,6 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        \App\Models\Campaign::create([
-            'title' => 'Campaign1 title name',
-            'amount' => '1000',
-            'status' => 'Finished',
-            'start_date' => now(),
-            'end_date' => now(),
-            'admin_id' => '1',
-            'currency_id' => '1',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
 
         \App\Models\CampaignOperations::create([
             'date' => now(),
@@ -175,19 +189,6 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        \App\Models\CampaignsServices::create([
-            'amount' => '2000',
-            'description' => 'description camp_serv1',
-            'status' => 1,
-            'start_date' => now(),
-            'end_date' => now(),
-
-            'campaign_id' => '1',
-            'service_id' => '1',
-
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
 
         \App\Models\CampaignsDonors::create([
             'amount' => '700',

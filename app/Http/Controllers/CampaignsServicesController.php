@@ -28,12 +28,14 @@ class CampaignsServicesController extends Controller
         // validate
         $valid = Validator($request->all(), [
             'amount' => 'required|numeric|min:0',
-            'description' => 'required|max:300',
-            'start_date' => 'required|date|after_or_equal:today',
-            'end_date' => 'required|date|after:start_date',
-            'status' => 'required|boolean|numeric',
+            'description' => 'required|max:200',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'status' => 'required|boolean',
             'service_id' => 'required|exists:services,id',
             'campaign_id' => 'required|exists:campaigns,id',
+            // 'start_date' => 'required|date|after_or_equal:today',
+            // 'end_date' => 'required|date|after:start_date',
         ]);
 
         // store
@@ -76,12 +78,14 @@ class CampaignsServicesController extends Controller
         // validate
         $valid = Validator($request->all(), [
             'amount' => 'required|numeric|min:0',
-            'description' => 'required|max:300',
-            'start_date' => 'required|date|after_or_equal:today',
-            'end_date' => 'required|date|after:start_date',
-            'status' => 'required|boolean|numeric',
+            'description' => 'required|max:200',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'status' => 'required|boolean',
             'service_id' => 'required|exists:services,id',
             'campaign_id' => 'required|exists:campaigns,id',
+            // 'start_date' => 'required|date|after_or_equal:today',
+            // 'end_date' => 'required|date|after:start_date',
         ]);
 
         // store

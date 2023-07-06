@@ -22,7 +22,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Role::class);
+        // $this->authorize('viewAny', Role::class);
 
         $data = Role::all();
         return new Response(['status' => true, 'data' => $data]);
@@ -48,7 +48,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Role::class);
+        // $this->authorize('create', Role::class);
 
         $validator = Validator($request->all(), [
             'name' => 'required|string|max:30',
@@ -68,9 +68,9 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        $this->authorize('view', $role);
+        // $this->authorize('view', $role);
 
-        return response()->json(['status' => true, 'object' => $role]);
+        return response()->json(['status' => true, 'data' => $role]);
     }
 
 
@@ -79,11 +79,11 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        $this->authorize('update', $role);
+        // $this->authorize('update', $role);
 
         $validator = Validator($request->all(), [
             'name' => 'required|string|max:30',
-            'guard_name' => 'required|string|in:admin-api',
+            'guard_name' => 'required|string|in:admin',
         ]);
 
         if (!$validator->fails()) {
@@ -102,7 +102,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $this->authorize('delete', $role);
+        // $this->authorize('delete', $role);
 
         $deleted = $role->delete();
         return response()->json(

@@ -141,4 +141,12 @@ class CampaignsServicesController extends Controller
         // }
         return response()->json(['status' => $deleted]);
     }
+
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $cs = CampaignsServices::onlyTrashed()->get();
+        $data = CampaignsServicesResource::collection($cs);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
+    }
 }

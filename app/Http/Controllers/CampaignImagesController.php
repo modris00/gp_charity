@@ -141,4 +141,12 @@ class CampaignImagesController extends Controller
         }
         return response()->json(['status' => $deleted]);
     }
+
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $camp_imgs = CampaignImages::onlyTrashed()->get();
+        $data = CampaignImagesResource::collection($camp_imgs);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
+    }
 }

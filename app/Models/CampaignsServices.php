@@ -15,6 +15,16 @@ class CampaignsServices extends Model
         return $this->hasMany(Bill::class, 'campaign_service_id', 'id');
     }
 
+    public function campaign()
+    {
+        return $this->belongsTo(Campaign::class, 'campaign_id', 'id');
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id', 'id');
+    }
+
     protected $hidden = [
         'created_at',
         'updated_at',

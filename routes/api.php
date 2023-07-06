@@ -18,6 +18,7 @@ use App\Http\Controllers\ContactRequestController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DonorController;
+use App\Http\Controllers\GiveRolePermissionController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
@@ -253,6 +254,8 @@ Route::apiResource('permissions', PermissionController::class);
 
 Route::put('/roles/{role}/permission/{permission}', [RoleController::class, 'updateRolePermission']);
 // });
+
+Route::get('/roles-permissions/{id}', [GiveRolePermissionController::class, 'ShowPermission']);
 
 
 

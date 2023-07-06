@@ -26,6 +26,7 @@ class CampaignOperationsResource extends JsonResource
         // ];
 
         $data = [
+            "id" => $this->id,
             "date" => $this->date,
             "description" => $this->description,
             "cost" => $this->cost,

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,9 +27,14 @@ class ContactRequestResource extends JsonResource
             'actor_type' => $this->actor_type,
             'response' => $this->response,
             'isClosed' => $this->isClosed,
-            'created_at' => date_format($this->created_at, 'Y-m-d H:i:s'),
-            'updated_at' => date_format($this->updated_at, 'Y-m-d H:i:s'),
+            'created_at' => Carbon::parse($this->created_at)->diffForHumans(),
+            'updated_at' => Carbon::parse($this->updated_at)->diffForHumans(),
+            'deleted_at' => Carbon::parse($this->deleted_at)->diffForHumans(),
+
+            // 'created_at' => date_format($this->created_at, 'Y-m-d H:i:s'),
+            // 'updated_at' => date_format($this->updated_at, 'Y-m-d H:i:s'),
             // 'deleted_at' => date_format($this->deleted_at, 'Y-m-d H:i:s'),
+
         ];
 
         if (!is_null($this->actor)) {

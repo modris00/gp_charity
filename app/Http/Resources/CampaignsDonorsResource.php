@@ -14,11 +14,30 @@ class CampaignsDonorsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        // return [
+        //     'id' => $this->id,
+        //     'amount' => $this->amount,
+        // ];
+
+        $data = [
             'id' => $this->id,
             'amount' => $this->amount,
-            'donor_id' => $this->donor_id,
-            'campaign_id' => $this->campaign_id,
         ];
+
+        if (!is_null($this->campaign)) {
+            $data['campaign_id'] = $this->campaign->id;
+            $data['campaign_title'] = $this->campaign->title;
+        } else {
+            $data['campaign'] = $this->campaign; //null for sure
+        }
+
+        if (!is_null($this->donor)) {
+            $data['donor_id'] = $this->donor->id;
+            $data['donor_name'] = $this->donor->name;
+        } else {
+            $data['donor'] = $this->donor; //null for sure
+        }
+
+        return $data;
     }
 }

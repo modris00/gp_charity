@@ -16,8 +16,7 @@ class CampaignsDonorsController extends Controller
     public function index()
     {
         // Eloquent
-        $campaignsDonors = CampaignsDonors::paginate(10);
-        return new Response(['data' => $campaignsDonors]);
+        $campaignsDonors = CampaignsDonors::all();
         return new CampaignsDonorsResourceCollection($campaignsDonors);
     }
 

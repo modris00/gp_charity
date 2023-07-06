@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text("message");
             $table->string("email")->unique();
             $table->string("phone");
+            $table->string("response")->nullable();
+            $table->boolean("isClosed")->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

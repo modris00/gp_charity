@@ -54,11 +54,11 @@ class SubCategoryController extends Controller
 
     public function show(SubCategory $SubCategory)
     {
-        // Return Resource Object
-        return response()->json([
-            "status" => "success",
-            "object" => $SubCategory
-        ]);
+        // return response()->json([
+        //     "status" => "success",
+        //     "object" => $SubCategory
+        // ]);
+        return new SubCategoryResource($SubCategory);
     }
 
     /**

@@ -23,7 +23,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-       // $this->authorize('viewAny', Admin::class);
+        // $this->authorize('viewAny', Admin::class);
 
         $admins = Admin::paginate(10); //Pagination
         $data = AdminResource::collection($admins);
@@ -35,7 +35,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-       // $this->authorize('create', Admin::class);
+        // $this->authorize('create', Admin::class);
 
         // validate
         $valid = validator($request->all(), [
@@ -52,10 +52,10 @@ class AdminController extends Controller
             $admin->email = $request->input('email');
             $admin->password = Hash::make($request->input('password'));
             $saved = $admin->save();
-            if ($saved) {
-                $role = Role::findById(1); //Super Admin
-                $admin->assignRole($role);
-            }
+            // if ($saved) {
+            //     $role = Role::findById(1); //Super Admin
+            //     $admin->assignRole($role);
+            // }
             return new Response(
                 ['data' => $admin, 'message' => $saved ? 'Created Admin Successfully' : 'Created Admin Failed!'],
                 $saved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST
@@ -80,7 +80,7 @@ class AdminController extends Controller
     public function update(Request $request, string $id)
     {
         $admin = Admin::findOrFail($id);
-      //  $this->authorize('update', $admin);
+        //  $this->authorize('update', $admin);
         // validate
         $valid = validator($request->all(), [
             'username' => 'required|string|min:2|max:20',
@@ -109,7 +109,7 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         // $admin = Admin::findOrFail($id);
-      //  $this->authorize('delete', $admin);
+        //  $this->authorize('delete', $admin);
 
         $deleted = $admin->delete();
         return new Response(
@@ -126,7 +126,7 @@ class AdminController extends Controller
         // $this->authorize('restore', $supplier);
         $admin = Admin::onlyTrashed()->get();
         $data = AdminResource::collection($admin);
-        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
     }
 
     /**
@@ -134,8 +134,8 @@ class AdminController extends Controller
      */
     public function restore(Request $request, $id): Response
     {
-      //  $admin = Admin::findOrFail($id);
-      //  $this->authorize('restore', $admin);
+        //  $admin = Admin::findOrFail($id);
+        //  $this->authorize('restore', $admin);
 
         $admin = Admin::onlyTrashed()->findOrFail($id);
         $restored = $admin->restore();
@@ -148,7 +148,7 @@ class AdminController extends Controller
     public function forceDelete(Request $request, $id): Response
     {
         $admin = Admin::withTrashed()->findOrFail($id);
-      //  $this->authorize('forceDelete', $admin);
+        //  $this->authorize('forceDelete', $admin);
 
         $deleted = $admin->forceDelete();
         return new Response(['status' => $deleted]);

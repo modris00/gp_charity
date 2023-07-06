@@ -16,8 +16,9 @@ class AreaController extends Controller
      */
     public function index()
     {
-       // $this->authorize('viewAny' , Area::class);
-        $area = Area::latest()->paginate(10);
+        // $this->authorize('viewAny' , Area::class);
+        // $area = Area::latest()->paginate(10);
+        $area = Area::all();
         return new AreaResourceCollection($area);
     }
 
@@ -27,7 +28,7 @@ class AreaController extends Controller
     public function store(Request $request)
     {
 
-         // $this->authorize('create' , Area::class);
+        // $this->authorize('create' , Area::class);
         $validator = validator($request->all(), [
             'name' => ['required', 'string', 'min:2', 'max:30'],
             'city_id' => ['required', 'int', 'numeric', 'exists:cities,id']
@@ -131,7 +132,7 @@ class AreaController extends Controller
         // $this->authorize('restore' , Area::class);
         $area = Area::onlyTrashed()->get();
         $data = AreaResource::collection($area);
-        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
     }
 
 
@@ -140,7 +141,7 @@ class AreaController extends Controller
      */
     public function restore(Request $request, $id): Response
     {
-        
+
         $area = Area::onlyTrashed()->findOrFail($id);
         // $this->authorize('restore' ,  $area);
         $restored = $area->restore();

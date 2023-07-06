@@ -41,7 +41,7 @@ class CampaignOperationsResource extends JsonResource
 
         if (!is_null($this->admin)) {
             $data['admin_id'] = $this->admin->id;
-            $data['admin_name'] = $this->admin->name;
+            $data['admin_username'] = $this->admin->username;
         } else {
             $data['admin'] = $this->admin; //null for sure
         }

@@ -183,6 +183,7 @@ Route::put('/contact-requests/{contactRequest}/restore', [ContactRequestControll
 /**
  * Bills
  */
+Route::get('/bills/archive', [BillController::class, 'Archives']);
 Route::apiResource('bills', BillController::class);
 Route::delete('/bills/{bill}/force-delete', [BillController::class, 'forceDelete']);
 Route::put('/bills/{bill}/restore', [BillController::class, 'restore']);
@@ -255,7 +256,9 @@ Route::apiResource('permissions', PermissionController::class);
 Route::put('/roles/{role}/permission/{permission}', [RoleController::class, 'updateRolePermission']);
 // });
 
+
 Route::get('/roles-permissions/{id}', [GiveRolePermissionController::class, 'ShowPermission']);
+
 
 
 

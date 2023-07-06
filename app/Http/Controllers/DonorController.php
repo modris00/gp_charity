@@ -20,7 +20,8 @@ class DonorController extends Controller
     public function index()
     {
         // $this->authorize('viewAny' ,  Donor::class);
-        $donor = Donor::latest()->Paginate(10);
+        // $donor = Donor::latest()->Paginate(10);
+        $donor = Donor::all();
         return new DonorResourceCollection($donor);
     }
 
@@ -34,7 +35,7 @@ class DonorController extends Controller
         $valditor = validator($request->all(), [
 
             'name' => ['required', 'string', 'min:2', 'max:45'],
-            'phone' => ['required', 'digits:10', 'numeric', 'unique:donors,phone'],
+            'phone' => ['required', 'digits:9', 'numeric', 'unique:donors,phone'],
             'username' => ['required', 'string', 'unique:donors,username'],
             'email' => ['required', 'string', 'email', 'unique:donors,email'],
             'password' => ['required', Password::min(8)->symbols()->letters()->uncompromised()],
@@ -87,7 +88,7 @@ class DonorController extends Controller
         $valditor = validator($request->all(), [
 
             'name' => ['required', 'string', 'min:2', 'max:45'],
-            'phone' => ['required', 'digits:10', 'numeric'],
+            'phone' => ['required', 'digits:9', 'numeric'],
             'username' => ['required', 'string', Rule::unique('donors')->ignore($id)],
             'email' => ['required', 'string', 'email', Rule::unique('donors')->ignore($id)],
             'area_id' => ['required', 'int', 'exists:areas,id']
@@ -173,7 +174,7 @@ class DonorController extends Controller
     {
         //
         $donor = Donor::withTrashed()->findOrFail($id);
-         // $this->authorize('forceDelete' ,  $donor);
+        // $this->authorize('forceDelete' ,  $donor);
         $deleted = $donor->forceDelete();
         return new Response(['status' => $deleted]);
     }

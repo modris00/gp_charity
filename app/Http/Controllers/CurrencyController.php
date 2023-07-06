@@ -20,7 +20,7 @@ class CurrencyController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Currency::class);
+        // $this->authorize('viewAny', Currency::class);
 
         $currencies = Currency::all();
         $data = CurrencyResource::collection($currencies);
@@ -32,7 +32,7 @@ class CurrencyController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Currency::class);
+        // $this->authorize('create', Currency::class);
 
         $valid = validator($request->all(), [
             'name' => 'required|string|min:2|max:20|unique:currencies,name',
@@ -60,7 +60,7 @@ class CurrencyController extends Controller
      */
     public function show(Currency $currency)
     {
-        $this->authorize('view', $currency);
+        // $this->authorize('view', $currency);
 
         return new CurrencyResource($currency);
     }
@@ -70,7 +70,7 @@ class CurrencyController extends Controller
      */
     public function update(Request $request, Currency $currency)
     {
-        $this->authorize('update', $currency);
+        // $this->authorize('update', $currency);
 
         // validate
         $valid = validator($request->all(), [
@@ -100,7 +100,7 @@ class CurrencyController extends Controller
     {
         // Eloquent
         $currency = Currency::findOrFail($id);
-        $this->authorize('delete', $currency);
+        // $this->authorize('delete', $currency);
 
         $deleted = $currency->delete();
         return new Response(
@@ -117,7 +117,7 @@ class CurrencyController extends Controller
     public function restore(Request $request, $id): Response
     {
         $currency = Currency::onlyTrashed()->findOrFail($id);
-        $this->authorize('restore', $currency);
+        // $this->authorize('restore', $currency);
 
         $restored = $currency->restore();
         return new Response(['status' => $restored]);
@@ -130,7 +130,7 @@ class CurrencyController extends Controller
     {
 
         $currency = Currency::withTrashed()->findOrFail($id);
-        $this->authorize('forceDelete', $currency);
+        // $this->authorize('forceDelete', $currency);
 
         $deleted = $currency->forceDelete();
         return new Response(['status' => $deleted]);

@@ -229,6 +229,7 @@ Route::delete("campaigns-donors/{campaignDonor}/forceDelete", [CampaignsDonorsCo
  * Campaigns-Beneficiaries
  * (Multi-Word)
  */
+Route::get('/campaigns-beneficiaries/archive', [CampaignsBeneficiariesController::class, 'Archives']);
 Route::apiResource('campaigns-beneficiaries', CampaignsBeneficiariesController::class);
 Route::get("campaigns-beneficiaries/{campaignBeneficiary}/restore", [CampaignsBeneficiariesController::class, 'restore']);
 Route::delete("campaigns-beneficiaries/{campaignBeneficiary}/forceDelete", [CampaignsBeneficiariesController::class, 'forceDelete']);

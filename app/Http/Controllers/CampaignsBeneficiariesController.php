@@ -16,7 +16,7 @@ class CampaignsBeneficiariesController extends Controller
     public function index()
     {
         // Eloquent
-        $campaignsBeneficiaries = CampaignsBeneficiaries::paginate(10);
+        $campaignsBeneficiaries = CampaignsBeneficiaries::all();
         return new CampaignsBeneficiariesResourceCollection($campaignsBeneficiaries);
     }
 
@@ -131,5 +131,13 @@ class CampaignsBeneficiariesController extends Controller
         //     // dd($object->image);
         // }
         return response()->json(['status' => $deleted]);
+    }
+
+    public function Archives()
+    {
+        // $this->authorize('restore', $supplier);
+        $campaignBeneficiaries = CampaignsBeneficiaries::onlyTrashed()->get();
+        $data = CampaignsBeneficiariesResource::collection($campaignBeneficiaries);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
     }
 }

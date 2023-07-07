@@ -41,8 +41,8 @@ class BillController extends Controller
             "description" => "required|max:150",
             "image" => 'nullable|image|mimes:jpeg,png,jpg,gif',
             "campaign_id" => "required|numeric|exists:campaigns,id",
-            "supplier_id" => "required|numeric|exists:supplier,id",
-            "currency_id" => "required|numeric|exists:currency,id",
+            "supplier_id" => "required|numeric|exists:suppliers,id",
+            "currency_id" => "required|numeric|exists:currencies,id",
             "campaign_service_id" => "required|numeric|exists:campaigns_services,id",
 
         ]);
@@ -103,8 +103,8 @@ class BillController extends Controller
             "description" => "required|max:150",
             "image" => 'nullable|image|mimes:jpeg,png,jpg,gif',
             "campaign_id" => "required|numeric|exists:campaigns,id",
-            "supplier_id" => "required|numeric|exists:supplier,id",
-            "currency_id" => "required|numeric|exists:currency,id",
+            "supplier_id" => "required|numeric|exists:suppliers,id",
+            "currency_id" => "required|numeric|exists:currencies,id",
             "campaign_service_id" => "required|numeric|exists:campaigns_services,id",
 
         ]);
@@ -177,7 +177,6 @@ class BillController extends Controller
 
     public function restore(Request $request, $id)
     {
-        $bill = Bill::findOrFail($id);
         // $this->authorize('restore', $bill);
 
         //
@@ -188,7 +187,6 @@ class BillController extends Controller
 
     public function forceDelete(Request $request, $id)
     {
-        $bill = Bill::findOrFail($id);
         // $this->authorize('forceDelete', $bill);
 
         //
@@ -198,5 +196,11 @@ class BillController extends Controller
             Storage::disk("public")->delete($bill->image);
         }
         return response()->json(['status' => $deleted]);
+    }
+    public function Archives()
+    {
+        $Bills = Bill::onlyTrashed()->get();
+        $data = BillResource::collection($Bills);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
     }
 }

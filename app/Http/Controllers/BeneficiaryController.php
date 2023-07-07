@@ -28,7 +28,8 @@ class BeneficiaryController extends Controller
     {
         // $this->authorize('viewAny', Beneficiary::class);
 
-        $beneficiaries = Beneficiary::latest()->Paginate(10);
+        // $beneficiaries = Beneficiary::latest()->Paginate(10);
+        $beneficiaries = Beneficiary::all();
         $data =  BeneficiaryResource::collection($beneficiaries);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data]);
     }

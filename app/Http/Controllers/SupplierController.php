@@ -39,7 +39,7 @@ class SupplierController extends Controller
 
         $validator = Validator($request->all(), [
             'name' => 'required|string|min:3|max:45',
-            'phone' => 'required|numeric|digits:10',
+            'phone' => 'required|numeric|digits:9',
             'address' => 'required|string|max:100'
         ]);
 
@@ -77,7 +77,7 @@ class SupplierController extends Controller
 
         $validator = Validator($request->all(), [
             'name' => 'required|string|min:3|max:45',
-            'phone' => 'required|numeric|digits:10',
+            'phone' => 'required|numeric|digits:9',
             'address' => 'required|string|max:100'
         ]);
 
@@ -112,7 +112,7 @@ class SupplierController extends Controller
         // $this->authorize('restore', $supplier);
         $suppliers = Supplier::onlyTrashed()->get();
         $data = SupplierResource::collection($suppliers);
-        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
     }
 
     /**

@@ -16,6 +16,7 @@ class CampaignsServicesController extends Controller
     public function index()
     {
         // Eloquent
+        // $this->authorize('viewAny' , CampaignsServices::class);
         $campaignsServices = CampaignsServices::paginate(10);
         return new CampaignsServicesResourceCollection($campaignsServices);
     }
@@ -25,6 +26,7 @@ class CampaignsServicesController extends Controller
      */
     public function store(Request $request)
     {
+        // $this->authorize('create' , CampaignsServices::class);
         // validate
         $valid = Validator($request->all(), [
             'amount' => 'required|numeric|min:0',
@@ -65,7 +67,7 @@ class CampaignsServicesController extends Controller
      */
     public function show(CampaignsServices $campaignsService)
     {
-        //
+        // $this->authorize('view' , $campaignsService);
         return new CampaignsServicesResource($campaignsService);
     }
 
@@ -92,6 +94,7 @@ class CampaignsServicesController extends Controller
         if (!$valid->fails()) {
             // Eloquent
             $campaignsServices = CampaignsServices::findOrFail($id);
+            // $this->authorize('update' , $campaignsServices);
             $campaignsServices->amount = $request->input('amount');
             $campaignsServices->description = $request->input('description');
             $campaignsServices->start_date = $request->input('start_date');
@@ -116,6 +119,7 @@ class CampaignsServicesController extends Controller
     {
         // Eloquent
         $campaignsServices = CampaignsServices::findOrFail($id);
+        // $this->authorize('delete' , $campaignsServices);
         $deleted = $campaignsServices->delete();
         return new Response(
             [
@@ -129,6 +133,7 @@ class CampaignsServicesController extends Controller
     {
         //
         $object = CampaignsServices::onlyTrashed()->findOrFail($id);
+        // $this->authorize('restore' , $object);
         $restored = $object->restore();
         return response()->json(['status' => $restored]);
     }
@@ -137,6 +142,7 @@ class CampaignsServicesController extends Controller
     {
         //
         $object = CampaignsServices::withTrashed()->findOrFail($id);
+        // $this->authorize('forceDelete' , $object);
         $deleted = $object->forceDelete();
         // if ($deleted && $object->image) {
         //     // Storage::delete($object->image);

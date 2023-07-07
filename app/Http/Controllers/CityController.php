@@ -18,7 +18,8 @@ class CityController extends Controller
     public function index()
     {
         // $this->authorize('viewAny' ,  City::class);
-        $city = City::latest()->paginate(10);
+        // $city = City::latest()->paginate(10);
+        $city = City::all();
         return new CityResourceCollection($city);
     }
 

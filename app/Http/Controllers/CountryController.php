@@ -18,7 +18,8 @@ class CountryController extends Controller
     public function index()
     {
         //  $this->authorize('viewAny' ,  Country::class);
-        $country = Country::latest()->paginate(10);
+        // $country = Country::latest()->paginate(10);
+        $country = Country::all();
         return new CountryResourceCollection($country);
     }
 

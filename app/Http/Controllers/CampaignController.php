@@ -32,7 +32,7 @@ class CampaignController extends Controller
         // $this->authorize('create' , Campaign::class);
         // validate
         $valid = Validator($request->all(), [
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:190',
             'amount' => 'required|numeric|min:0',
             'status' => 'required|in:Finished,Not Finished',
             'start_date' => 'required|date',

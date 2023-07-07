@@ -17,6 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         // Eloquent
+        // $this->authorize('viewAny' , Category::class);
         $category = Category::paginate(10); //Pagination
         return new CategoryResourceCollection($category);
     }
@@ -26,6 +27,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        // $this->authorize('create' , Category::class);
         // validate
         $valid = validator($request->all(), [
             'name' => 'required|string|min:2|max:45|unique:categories,id',
@@ -53,7 +55,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        // $this->authorize('view' , $category);
         return new CategoryResource($category);
     }
 
@@ -73,6 +75,7 @@ class CategoryController extends Controller
         if (!$valid->fails()) {
             // Eloquent
             $category = Category::findOrFail($id);
+            // $this->authorize('update' , $category);
             $category->name = $request->input('name');
             $category->description = $request->input('description');
             $update = $category->save();
@@ -93,6 +96,7 @@ class CategoryController extends Controller
     {
         // Eloquent
         $category = Category::findOrFail($id);
+        // $this->authorize('delete' , $category);
         $deleted = $category->delete();
         return new Response(
             [
@@ -107,7 +111,7 @@ class CategoryController extends Controller
         // $this->authorize('restore', $supplier);
         $category = Category::onlyTrashed()->get();
         $data = CategoryResource::collection($category);
-        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
     }
 
     /**
@@ -117,6 +121,7 @@ class CategoryController extends Controller
     {
         //
         $category = Category::onlyTrashed()->findOrFail($id);
+        // $this->authorize('restore' , $category);
         $restored = $category->restore();
         return new Response(['status' => $restored]);
     }
@@ -128,6 +133,7 @@ class CategoryController extends Controller
     {
         //
         $category = Category::withTrashed()->findOrFail($id);
+        // $this->authorize('forceDelete' , $category);
         $deleted = $category->forceDelete();
         return new Response(['status' => $deleted]);
     }

@@ -16,6 +16,7 @@ class CampaignsBeneficiariesController extends Controller
     public function index()
     {
         // Eloquent
+        // $this->authorize('viewAny' , CampaignsBeneficiaries::class);
         $campaignsBeneficiaries = CampaignsBeneficiaries::all();
         return new CampaignsBeneficiariesResourceCollection($campaignsBeneficiaries);
     }
@@ -25,6 +26,7 @@ class CampaignsBeneficiariesController extends Controller
      */
     public function store(Request $request)
     {
+        // $this->authorize('create' , CampaignsBeneficiaries::class);
         // validate
         $valid = Validator($request->all(), [
             'amount' => 'required|numeric|min:0',
@@ -59,7 +61,7 @@ class CampaignsBeneficiariesController extends Controller
      */
     public function show(CampaignsBeneficiaries $CampaignsBeneficiary)
     {
-        //
+        // $this->authorize('view' , $CampaignsBeneficiary);
         return new CampaignsBeneficiariesResource($CampaignsBeneficiary);
     }
 
@@ -81,6 +83,7 @@ class CampaignsBeneficiariesController extends Controller
         if (!$valid->fails()) {
             // Eloquent
             $campaignsBeneficiaries = CampaignsBeneficiaries::findOrFail($id);
+            // $this->authorize('update' , $campaignsBeneficiaries);
             $campaignsBeneficiaries->amount = $request->input('amount');
             $campaignsBeneficiaries->description = $request->input('description');
             $campaignsBeneficiaries->status = $request->input('status');
@@ -96,7 +99,6 @@ class CampaignsBeneficiariesController extends Controller
             return new Response(['message' => $valid->getMessageBag()->first()], Response::HTTP_BAD_REQUEST);
         }
     }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -104,6 +106,7 @@ class CampaignsBeneficiariesController extends Controller
     {
         // Eloquent
         $campaignsBeneficiaries = CampaignsBeneficiaries::findOrFail($id);
+        // $this->authorize('delete' , $campaignsBeneficiaries);
         $deleted = $campaignsBeneficiaries->delete();
         return new Response(
             [
@@ -116,6 +119,7 @@ class CampaignsBeneficiariesController extends Controller
     {
         //
         $object = CampaignsBeneficiaries::onlyTrashed()->findOrFail($id);
+        // $this->authorize('restore' , $object);
         $restored = $object->restore();
         return response()->json(['status' => $restored]);
     }
@@ -124,6 +128,7 @@ class CampaignsBeneficiariesController extends Controller
     {
         //
         $object = CampaignsBeneficiaries::withTrashed()->findOrFail($id);
+        // $this->authorize('forceDelete' , $object);
         $deleted = $object->forceDelete();
         // if ($deleted && $object->image) {
         //     // Storage::delete($object->image);

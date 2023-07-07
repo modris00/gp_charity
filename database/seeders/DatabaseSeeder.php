@@ -133,7 +133,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-      
+
         \App\Models\CampaignsServices::create([
             'amount' => '2000',
             'description' => 'description camp_serv1',

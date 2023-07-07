@@ -70,7 +70,7 @@ class RoleController extends Controller
     {
         $this->authorize('view', $role);
 
-        return response()->json(['status' => true, 'object' => $role]);
+        return response()->json(['status' => true, 'data' => $role]);
     }
 
 
@@ -83,7 +83,7 @@ class RoleController extends Controller
 
         $validator = Validator($request->all(), [
             'name' => 'required|string|max:30',
-            'guard_name' => 'required|string|in:admin-api',
+            'guard_name' => 'required|string|in:admin',
         ]);
 
         if (!$validator->fails()) {

@@ -133,6 +133,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+      
         \App\Models\CampaignsServices::create([
             'amount' => '2000',
             'description' => 'description camp_serv1',
@@ -146,7 +147,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        
+
         \App\Models\Bill::create([
             'cost' => '123',
             'description' => 'description bill1',
@@ -159,7 +160,6 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
 
         \App\Models\CampaignOperations::create([
             'date' => now(),
@@ -188,7 +188,6 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
 
         \App\Models\CampaignsDonors::create([
             'amount' => '700',

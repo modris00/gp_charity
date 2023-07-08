@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -30,7 +31,25 @@ class GiveRolePermissionController extends Controller
         }
 
         return response()->json([
-            'permission' => $permissions
+            'data' => $permissions
         ]);
     }
+
+    public function updateRolePermission(Request $request, Role $role, Permission $permission)
+    {
+        if ($role->guard_name == $permission->guard_name) {
+            if ($role->hasPermissionTo($permission)) {
+                $role->revokePermissionTo($permission);
+                return new Response(['message' => "The Permission has been revoked"  ], Response::HTTP_OK);
+            } else {
+                $role->givePermissionTo($permission);
+                return new Response(['message' => "Permission has been granted successfully" ], Response::HTTP_OK);
+            }
+           
+        } else {
+            return new Response(['message' => 'Role & permission not for the same guard'], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    
 }

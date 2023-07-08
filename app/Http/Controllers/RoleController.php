@@ -52,7 +52,7 @@ class RoleController extends Controller
 
         $validator = Validator($request->all(), [
             'name' => 'required|string|max:30',
-            'guard_name' => 'required|string|in:admins,donors,beneficiarys',
+            'guard_name' => 'required|string|in:admin,donor,beneficiary',
         ]);
 
         if (!$validator->fails()) {
@@ -83,7 +83,7 @@ class RoleController extends Controller
 
         $validator = Validator($request->all(), [
             'name' => 'required|string|max:30',
-            'guard_name' => 'required|string|in:admins,donors,beneficiarys',
+            'guard_name' => 'required|string|in:admin,donor,beneficiary',
         ]);
 
         if (!$validator->fails()) {

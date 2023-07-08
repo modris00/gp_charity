@@ -19,7 +19,7 @@ class CampaignController extends Controller
         // Eloquent
         // $this->authorize('viewAny' , Campaign::class);
         // $campaign = Campaign::all();
-        $campaign = Campaign::with('admin', 'currency')->get();
+        $campaign = Campaign::with('admin', 'currency')->withCount("beneficiaries", "services", "operations", "bills")->get();
         // return new Response(['data' => $campaign]);
         return new CampaignResourceCollection($campaign);
     }
@@ -164,5 +164,16 @@ class CampaignController extends Controller
         // $this->authorize('forceDelete' , $campaign);
         $deleted = $campaign->forceDelete();
         return new Response(['status' => $deleted]);
+    }
+    public function services(Request $request, $id)
+    {
+        $campaign = Campaign::findOrFail($id)->services;
+        return new Response(["status" => true, "data" => $campaign], Response::HTTP_OK);
+    }
+
+    public function beneficiaries(Request $request, $id)
+    {
+        $campaign = Campaign::findOrFail($id)->beneficiaries;
+        return new Response(["status" => true, "data" => $campaign], Response::HTTP_OK);
     }
 }

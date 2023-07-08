@@ -8,11 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-
     public function login(Request $request)
     {
-
-
         $val =  validator($request->all(), [
             'email' => 'required|email|string',
             'password' => 'required',
@@ -33,7 +30,6 @@ class AuthController extends Controller
                 ], Response::HTTP_BAD_REQUEST);
             }
         } else {
-
             return new Response([
                 'message' => $val->getMessageBag()->first(),
             ], Response::HTTP_BAD_REQUEST);

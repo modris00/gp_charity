@@ -4,7 +4,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AreaController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\CampaignController;
@@ -19,7 +18,6 @@ use App\Http\Controllers\ContactRequestController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DonorController;
-use App\Http\Controllers\GiveRolePermissionController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
@@ -42,6 +40,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('campaigns/{campaign}/services', [CampaignController::class, 'services']);
+Route::get('campaigns/{beneficiary}/beneficiaries', [CampaignController::class, 'beneficiaries']);
+
 
 /**
  * Clear Cache
@@ -296,12 +298,10 @@ Route::apiResource('permissions', PermissionController::class);
 // Route::delete('/permissions/{permission}/force-delete', [PermissionController::class, 'forceDelete']);
 // Route::put('/permissions/{permission}/restore', [PermissionController::class, 'restore']);
 
-Route::put('/roles/{role}/permission/{permission}', [RoleController::class, 'updateRolePermission']);
+Route::put('/roles/{role}/permission/{permission}', [GiveRolePermissionController::class, 'updateRolePermission']);
 // });
 
-
 Route::get('/roles-permissions/{id}', [GiveRolePermissionController::class, 'ShowPermission']);
-
 
 Route::post('/login', [AuthController::class, 'login']);
 

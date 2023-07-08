@@ -33,9 +33,9 @@ class CampaignResource extends JsonResource
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
 
-            "bills_count" => count($this->bills),
-            "operations_count" => count($this->operations),
-            "campaignImages_count" => count($this->campaignImages),
+            "bills_count" => $this->bills_count,
+            "operations_count" => $this->operations_count,
+            "services_count" => $this->services_count,
 
             //many to many :
             // "services_count" => count($this->services),

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\CampaignController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\ContactRequestController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DonorController;
+use App\Http\Controllers\GiveRolePermissionController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
@@ -74,10 +76,10 @@ Route::delete('/suppliers/{supplier}/force-delete', [SupplierController::class, 
 /**
  * Countries
  */
-Route::get('/countries/archive', [CountryController::class, 'Archives']);
-Route::apiResource('countries', CountryController::class);
-Route::put('/countries/{country}/restore', [CountryController::class, 'restore']);
-Route::delete('/countries/{country}/force-delete', [CountryController::class, 'forceDelete']);
+Route::get('/countries/archive', [CountryController::class, 'Archives'])->middleware('auth:sanctum');
+Route::apiResource('countries', CountryController::class)->middleware('auth:sanctum');
+Route::put('/countries/{country}/restore', [CountryController::class, 'restore'])->middleware('auth:sanctum');
+Route::delete('/countries/{country}/force-delete', [CountryController::class, 'forceDelete'])->middleware('auth:sanctum');
 /** End */
 
 /**
@@ -254,3 +256,12 @@ Route::apiResource('permissions', PermissionController::class);
 
 Route::put('/roles/{role}/permission/{permission}', [RoleController::class, 'updateRolePermission']);
 // });
+
+
+Route::get('/roles-permissions/{id}', [GiveRolePermissionController::class, 'ShowPermission']);
+
+
+
+Route::post('/login/{guard}', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout']);
+

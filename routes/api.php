@@ -256,5 +256,5 @@ Route::apiResource('permissions', PermissionController::class);
 // Route::delete('/permissions/{permission}/force-delete', [PermissionController::class, 'forceDelete']);
 // Route::put('/permissions/{permission}/restore', [PermissionController::class, 'restore']);
 
-Route::put('/roles/{role}/permission/{permission}', [RoleController::class, 'updateRolePermission']);
+Route::put('/roles/{role}/permission/{permission}', [GiveRolePermissionController::class, 'updateRolePermission']);
 // });

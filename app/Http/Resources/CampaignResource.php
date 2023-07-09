@@ -34,8 +34,13 @@ class CampaignResource extends JsonResource
             'end_date' => $this->end_date,
 
             "bills_count" => $this->bills_count,
-            "operations_count" => $this->operations_count,
-            "services_count" => $this->services_count,
+            "operations_count" => $this->operations->count(),
+            // "services_count" => $this->services_count,
+            'services_count' => $this->services->count(),
+            // "name_services" => $this->services->pluck('name')->toArray(),
+            // "active_services" => $this->services->pluck('active')->toArray(),
+            // "subCatgory_campaign" => $this->services->pluck("subCategory.name")->toArray(),
+            // 'category_name' => $this->services->pluck('subCategory.category.name')->toArray(),
 
             //many to many :
             // "services_count" => count($this->services),

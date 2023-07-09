@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\CampaignController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\ContactRequestController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DonorController;
+use App\Http\Controllers\GiveRolePermissionController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
@@ -43,7 +45,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('campaigns/{campaign}/services', [CampaignController::class, 'services']);
 Route::get('campaigns/{beneficiary}/beneficiaries', [CampaignController::class, 'beneficiaries']);
-
+Route::get('campaigns/{donor}/donors', [CampaignController::class, 'donors']);
 
 /**
  * Clear Cache
@@ -170,7 +172,7 @@ Route::middleware("auth:sanctum")->group(function () {
 /** End */
 
 /**
- * Campaigns
+ * Campaigns 
  */
 Route::middleware("auth:sanctum")->group(function () {
     Route::get('/campaigns/archive', [CampaignController::class, 'Archives']);

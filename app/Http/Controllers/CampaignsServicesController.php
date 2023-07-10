@@ -154,7 +154,7 @@ class CampaignsServicesController extends Controller
 
     public function Archives()
     {
-        $this->authorize('restore', $supplier);
+       // $this->authorize('restore', $supplier);
         $cs = CampaignsServices::onlyTrashed()->get();
         $data = CampaignsServicesResource::collection($cs);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);

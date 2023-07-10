@@ -22,7 +22,7 @@ class BillController extends Controller
      */
     public function index()
     {
-         $this->authorize('viewAny', Bill::class);
+        $this->authorize('viewAny', Bill::class);
 
         $bills = Bill::all();
         $data = BillResource::collection($bills);
@@ -177,20 +177,22 @@ class BillController extends Controller
 
     public function restore(Request $request, $id)
     {
-        $this->authorize('restore', $bill);
+
 
         //
         $bill = Bill::onlyTrashed()->findOrFail($id);
+        $this->authorize('restore', $bill);
         $restored = $bill->restore();
         return response()->json(['status' => $restored]);
     }
 
     public function forceDelete(Request $request, $id)
     {
-        $this->authorize('forceDelete', $bill);
+
 
         //
         $bill = Bill::withTrashed()->findOrFail($id);
+        $this->authorize('forceDelete', $bill);
         $deleted = $bill->forceDelete();
         if ($deleted && $bill->image) {
             Storage::disk("public")->delete($bill->image);

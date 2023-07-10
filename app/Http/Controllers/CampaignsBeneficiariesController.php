@@ -140,7 +140,7 @@ class CampaignsBeneficiariesController extends Controller
 
     public function Archives()
     {
-        $this->authorize('restore', $supplier);
+       // $this->authorize('restore', $supplier);
         $campaignBeneficiaries = CampaignsBeneficiaries::onlyTrashed()->get();
         $data = CampaignsBeneficiariesResource::collection($campaignBeneficiaries);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);

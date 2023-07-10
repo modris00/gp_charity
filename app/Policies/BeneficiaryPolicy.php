@@ -70,4 +70,11 @@ class BeneficiaryPolicy
         //
         return $user->hasPermissionTo('forceDelete-Beneficiary');
     }
+    public function campaigns($user): bool
+    {
+        //
+        // return true;
+        return $user->hasPermissionTo('Show-Campaign');
+        // return true;
+    }
 }

@@ -63,4 +63,9 @@ class DonorPolicy
     {
         return $user->hasPermissionTo('forceDelete-Donor');
     }
+    public function campaigns($user): bool
+    {
+
+        return $user->hasPermissionTo('Show-Campaign');
+    }
 }

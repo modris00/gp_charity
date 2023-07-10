@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // $this->call([Role::class, Permission::class]);
+        $this->call([RoleSeeder::class]);
+        $this->call([PermissionSeeder::class]);
 
         \App\Models\Country::create([
             'name' => 'country1',
@@ -59,13 +61,16 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        \App\Models\Admin::create([
-            'username' => 'admin1_username',
-            'email' => 'admin1_email@app.com',
+        $admin =   \App\Models\Admin::create([
+            'username' => 'admin',
+            'email' => 'admin@admin.com',
             'password' => Hash::make(123456),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $role = Role::findById(1);
+        $admin->assignRole($role);
+
 
         \App\Models\Donor::create([
             'name' => 'Donor1',
@@ -82,6 +87,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Beneficiary1',
             'age' => '20',
             'gender' => 'Male',
+            "phone" => "0592403622",
             'username' => 'Beneficiary1_username',
             'email' => 'Beneficiary1_email@app.com',
             'area_id' => '1',

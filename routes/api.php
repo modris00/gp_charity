@@ -172,7 +172,7 @@ Route::middleware("auth:sanctum")->group(function () {
 /** End */
 
 /**
- * Campaigns 
+ * Campaigns
  */
 Route::middleware("auth:sanctum")->group(function () {
     Route::get('/campaigns/archive', [CampaignController::class, 'Archives']);
@@ -290,7 +290,7 @@ Route::middleware("auth:sanctum")->group(function () {
 /**
  * Roles & Permissions
  */
-Route::middleware('auth:admin-api')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('roles', RoleController::class);
     // Route::delete('/roles/{role}/force-delete', [RoleController::class, 'forceDelete']);
     // Route::put('/roles/{role}/restore', [RoleController::class, 'restore']);
@@ -303,10 +303,16 @@ Route::middleware('auth:admin-api')->group(function () {
     Route::put('/roles/{role}/permission/{permission}', [GiveRolePermissionController::class, 'updateRolePermission']);
     Route::get('/roles-permissions/{id}', [GiveRolePermissionController::class, 'ShowPermission']);
 });
+/** End */
 
 
+
+/**
+ * Roles & Permissions
+ */
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware("auth:sanctum")->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
 });
+/** End */

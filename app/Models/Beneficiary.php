@@ -3,10 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
-
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Beneficiary extends Authenticatable
@@ -25,6 +23,6 @@ class Beneficiary extends Authenticatable
 
     public function campaigns()
     {
-        return $this->belongsToMany(Campaign::class, CampaignsServices::class, 'beneficiary_id', 'campaign_id');
+        return $this->belongsToMany(Campaign::class, CampaignsBeneficiaries::class, 'beneficiary_id', 'campaign_id');
     }
 }

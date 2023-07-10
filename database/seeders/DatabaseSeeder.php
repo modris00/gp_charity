@@ -68,12 +68,25 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        $role = Role::findById(1);
-        $admin->assignRole($role);
+        $roleAdmin = Role::findById(1, 'admin');
+        $admin->assignRole($roleAdmin);
 
 
+        $donor = \App\Models\Donor::create([
+            'name' => 'Donor1',
+            'phone' => '987654321',
+            'username' => 'Donor1_username',
+            'email' => 'Donor1_email@app.com',
+            'area_id' => '1',
+            'password' => Hash::make(123456),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $roleDonor = Role::findById(3, 'donor');
+        $donor->assignRole($roleDonor);
 
-        $beneficiary = \App\Models\Beneficiary::create([
+
+        $beneficiary =  \App\Models\Beneficiary::create([
             'name' => 'Beneficiary1',
             'age' => '20',
             'gender' => 'Male',
@@ -85,6 +98,8 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $roleBeneficiary = Role::findById(2, 'beneficiary');
+        $beneficiary->assignRole($roleBeneficiary);
 
         $role = Role::findById(2, "beneficiary");
         $beneficiary->assignRole($role);

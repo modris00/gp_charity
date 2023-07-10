@@ -53,7 +53,7 @@ class AdminController extends Controller
             $admin->password = Hash::make($request->input('password'));
             $saved = $admin->save();
             if ($saved) {
-                $role = Role::findById(1); //Super Admin
+                $role = Role::findById(1, 'admin'); //Super Admin
                 $admin->assignRole($role);
             }
             return new Response(

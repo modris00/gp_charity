@@ -113,7 +113,7 @@ class CampaignsDonorsController extends Controller
 
     public function Archives()
     {
-        $this->authorize('restore', $supplier);
+       // $this->authorize('restore', $supplier);
         $CampaignsDonors = CampaignsDonors::onlyTrashed()->get();
         $data = CampaignsDonorsResource::collection($CampaignsDonors);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);

@@ -169,7 +169,7 @@ class BeneficiaryController extends Controller
 
     public function Archives()
     {
-        $this->authorize('restore', $supplier);
+       // $this->authorize('restore', $supplier);
         $beneficiary = Beneficiary::onlyTrashed()->get();
         $data = BeneficiaryResource::collection($beneficiary);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);

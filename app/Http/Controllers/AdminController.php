@@ -123,7 +123,7 @@ class AdminController extends Controller
 
     public function Archives()
     {
-         $this->authorize('restore', $supplier);
+     //   $this->authorize('restore', $supplier);
         $admin = Admin::onlyTrashed()->get();
         $data = AdminResource::collection($admin);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
@@ -135,9 +135,10 @@ class AdminController extends Controller
     public function restore(Request $request, $id): Response
     {
         //  $admin = Admin::findOrFail($id);
-          $this->authorize('restore', $admin);
+     
 
         $admin = Admin::onlyTrashed()->findOrFail($id);
+        $this->authorize('restore', $admin);
         $restored = $admin->restore();
         return new Response(['status' => $restored]);
     }

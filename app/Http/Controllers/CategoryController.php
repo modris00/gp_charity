@@ -108,7 +108,7 @@ class CategoryController extends Controller
 
     public function Archives()
     {
-        $this->authorize('restore', $supplier);
+       // $this->authorize('restore', $supplier);
         $category = Category::onlyTrashed()->get();
         $data = CategoryResource::collection($category);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);

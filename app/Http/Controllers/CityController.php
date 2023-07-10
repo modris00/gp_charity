@@ -131,7 +131,7 @@ class CityController extends Controller
 
     public function Archives()
     {
-        $this->authorize('restore' ,  City::class);
+       //  $this->authorize('restore' ,  City::class);
         $city = City::onlyTrashed()->get();
         $data = CityResource::collection($city);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);

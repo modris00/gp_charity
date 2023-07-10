@@ -129,7 +129,7 @@ class AreaController extends Controller
 
     public function Archives()
     {
-        $this->authorize('restore' , Area::class);
+        //  $this->authorize('restore' , Area::class);
         $area = Area::onlyTrashed()->get();
         $data = AreaResource::collection($area);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);

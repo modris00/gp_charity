@@ -135,7 +135,7 @@ class ContactRequestController extends Controller
 
     public function Archives()
     {
-        $this->authorize('restore', $supplier);
+        // $this->authorize('restore', $supplier);
         $contactRequests = ContactRequest::onlyTrashed()->get();
         $data = ContactRequestResource::collection($contactRequests);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);

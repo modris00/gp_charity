@@ -16,7 +16,7 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny' , SubCategory::class);
+        $this->authorize('viewAny', SubCategory::class);
         // $subCategories = SubCategory::with('category')->get();
         // return new SubCategoryResourceCollection($subCategories);
         // $subCategories = SubCategory::all();
@@ -29,7 +29,7 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create' , SubCategory::class);
+        $this->authorize('create', SubCategory::class);
         // validate
         $valid = Validator($request->all(), [
             'name' => 'required|string|min:2|max:45|unique:sub_categories,id',
@@ -56,7 +56,7 @@ class SubCategoryController extends Controller
 
     public function show(SubCategory $SubCategory)
     {
-        $this->authorize('view' , $SubCategory);
+        $this->authorize('view', $SubCategory);
         // return response()->json([
         //     "status" => "success",
         //     "object" => $SubCategory
@@ -80,7 +80,7 @@ class SubCategoryController extends Controller
         if (!$valid->fails()) {
             // Eloquent
             $subcategory = SubCategory::findOrFail($id);
-            $this->authorize('update' , $subcategory);
+            $this->authorize('update', $subcategory);
             $subcategory->name = $request->input('name');
             $subcategory->description = $request->input('description');
             $subcategory->category_id = $request->input('category_id');
@@ -101,7 +101,7 @@ class SubCategoryController extends Controller
     {
         // Eloquent
         $subcategory = SubCategory::findOrFail($id);
-        $this->authorize('delete' , $subcategory);
+        $this->authorize('delete', $subcategory);
         $deleted = $subcategory->delete();
         return new Response(
             [
@@ -113,7 +113,7 @@ class SubCategoryController extends Controller
 
     public function Archives()
     {
-        $this->authorize('restore', $supplier);
+        // $this->authorize('restore', $supplier);
         $SubCategory = SubCategory::onlyTrashed()->get();
         $data = SubCategoryResource::collection($SubCategory);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
@@ -124,9 +124,8 @@ class SubCategoryController extends Controller
      */
     public function restore(Request $request, $id): Response
     {
-        $this->authorize('restore' , $subcategory);
-
         $subcategory = SubCategory::onlyTrashed()->findOrFail($id);
+        $this->authorize('restore', $subcategory);
         $restored = $subcategory->restore();
         return new Response(['status' => $restored]);
     }
@@ -136,8 +135,8 @@ class SubCategoryController extends Controller
      */
     public function forceDelete(Request $request, $id): Response
     {
-        $this->authorize('forceDelete' , $subcategory);
         $subcategory = SubCategory::withTrashed()->findOrFail($id);
+        $this->authorize('forceDelete', $subcategory);
         $deleted = $subcategory->forceDelete();
         return new Response(['status' => $deleted]);
     }

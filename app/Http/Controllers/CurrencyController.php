@@ -113,7 +113,7 @@ class CurrencyController extends Controller
 
     public function Archives()
     {
-        $this->authorize('restore', $supplier);
+        // $this->authorize('restore', $supplier);
         $Currency = Currency::onlyTrashed()->get();
         $data = CurrencyResource::collection($Currency);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);

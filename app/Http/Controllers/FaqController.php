@@ -36,7 +36,7 @@ class FaqController extends Controller
     public function store(Request $request)
     {
 
-       $this->authorize('create', Faq::class);
+        $this->authorize('create', Faq::class);
         $validator = validator($request->all(), [
             "question" => "string|required|min:5|max:100",
             "answer" => "string|required|min:5|max:250",
@@ -108,10 +108,10 @@ class FaqController extends Controller
 
     public function Archives()
     {
-        $this->authorize('restore', $supplier);
+        // $this->authorize('restore', $supplier);
         $Faq = Faq::onlyTrashed()->get();
         $data = FaqResource::collection($Faq);
-        return response()->json(['status' => true, 'message' => 'success', 'data' => $data] , 200);
+        return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
     }
 
     /**
@@ -121,7 +121,7 @@ class FaqController extends Controller
     {
         $faq = Faq::onlyTrashed()->findOrFail($id);
 
-      //  $this->authorize('restore', $faq);
+        //  $this->authorize('restore', $faq);
 
         $restored = $faq->restore();
         return new Response(['status' => $restored]);

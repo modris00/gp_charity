@@ -17,7 +17,7 @@ class CityController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny' ,  City::class);
+        $this->authorize('viewAny',  City::class);
         // $city = City::latest()->paginate(10);
         $city = City::all();
         return new CityResourceCollection($city);
@@ -28,7 +28,7 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create' ,  City::class);
+        $this->authorize('create',  City::class);
         $validator = validator($request->all(), [
             'name' => ['required', 'string', 'min:2', 'max:30'],
             'country_id' => ['required', 'int', 'numeric', 'exists:countries,id']
@@ -61,7 +61,7 @@ class CityController extends Controller
         //     'date' => $city_city,
         //     'status' => true
         // ],  Response::HTTP_OK);
-        $this->authorize('view' ,  $city);
+        $this->authorize('view',  $city);
         return new CityResource($city);
     }
 
@@ -79,7 +79,7 @@ class CityController extends Controller
         if (!$validator->fails()) {
 
             $city = City::findorfail($id);
-            $this->authorize('update' ,  $city);
+            $this->authorize('update',  $city);
             $city->name = $request->input('name');
             $city->country_id = $request->input('country_id');
             $city->save();
@@ -106,7 +106,7 @@ class CityController extends Controller
     public function destroy($id)
     {
         $city = City::findorfail($id);
-        $this->authorize('delete' ,  $city);
+        $this->authorize('delete',  $city);
         $city->delete();
 
         if ($city) {
@@ -131,7 +131,7 @@ class CityController extends Controller
 
     public function Archives()
     {
-        $this->authorize('restore' ,  City::class);
+        // $this->authorize('restore' ,  City::class);
         $city = City::onlyTrashed()->get();
         $data = CityResource::collection($city);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
@@ -144,7 +144,7 @@ class CityController extends Controller
     {
         //
         $city = City::onlyTrashed()->findOrFail($id);
-        $this->authorize('restore' ,  $city);
+        $this->authorize('restore',  $city);
         $restored = $city->restore();
         return new Response(['status' => $restored]);
     }
@@ -156,7 +156,7 @@ class CityController extends Controller
     {
         //
         $city = City::withTrashed()->findOrFail($id);
-        $this->authorize('forceDelete' ,  $city);
+        $this->authorize('forceDelete',  $city);
         $deleted = $city->forceDelete();
         return new Response(['status' => $deleted]);
     }

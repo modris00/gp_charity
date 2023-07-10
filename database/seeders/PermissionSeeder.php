@@ -159,5 +159,10 @@ class PermissionSeeder extends Seeder
         Permission::create(["name" => "Delete-CampaignImage", "guard_name" => "admin"]);
         Permission::create(["name" => "Restore-CampaignImage", "guard_name" => "admin"]);
         Permission::create(["name" => "forceDelete-CampaignImage", "guard_name" => "admin"]);
+
+
+        Permission::create(["name" => "Show-Campaign", "guard_name" => "beneficiary"]);
+
+        Permission::create(["name" => "Show-Campaign", "guard_name" => "donor"]);
     }
 }

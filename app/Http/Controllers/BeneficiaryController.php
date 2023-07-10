@@ -203,7 +203,11 @@ class BeneficiaryController extends Controller
 
     public function campaigns(Request $request, $id)
     {
+        $beneficiary = Beneficiary::findOrFail($id);
+        $this->authorize('campaigns', $beneficiary);
+
         $campaigns = Beneficiary::findOrFail($id)->campaigns;
+
         return new Response(["status" => true, "data" => $campaigns], Response::HTTP_OK);
     }
 

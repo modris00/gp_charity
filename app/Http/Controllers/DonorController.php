@@ -181,6 +181,11 @@ class DonorController extends Controller
 
     public function campaigns(Request $request, $id)
     {
+
+        // $this->authorize('forceDelete' ,  $donor);
+        $donor = Donor::findOrFail($id);
+        $this->authorize('campaigns', $donor);
+
         $campaigns = Donor::findOrFail($id)->campaigns;
         return new Response(["status" => true, "data" => $campaigns], Response::HTTP_OK);
     }
@@ -189,6 +194,5 @@ class DonorController extends Controller
     {
         $contactRequests = Donor::findOrFail($id)->contactRequests;
         return new Response(["status" => true, "data" => $contactRequests], Response::HTTP_OK);
-
     }
 }

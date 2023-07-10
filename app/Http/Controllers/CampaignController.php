@@ -50,8 +50,7 @@ class CampaignController extends Controller
             $campaign->status = $request->input('status');
             $campaign->start_date = $request->input('start_date');
             $campaign->end_date = $request->input('end_date');
-            // $campaign->admin_id = $request->input('admin_id');
-            $campaign->admin_id = 1;
+            $campaign->admin_id = $request->input('admin_id');
             $campaign->currency_id = $request->input('currency_id');
             $saved = $campaign->save();
             return new Response(
@@ -105,7 +104,7 @@ class CampaignController extends Controller
             $campaign->status = $request->input('status');
             $campaign->start_date = $request->input('start_date');
             $campaign->end_date = $request->input('end_date');
-            $campaign->admin_id = 1;
+            $campaign->admin_id = $request->input('admin_id');
             $campaign->currency_id = $request->input('currency_id');
             $update = $campaign->save();
             return new Response(

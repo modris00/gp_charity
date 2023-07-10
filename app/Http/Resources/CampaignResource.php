@@ -38,6 +38,7 @@ class CampaignResource extends JsonResource
             // "services_count" => $this->services_count,
             'services_count' => $this->services->count(),
             // "name_services" => $this->services->pluck('name')->toArray(),
+
             // "active_services" => $this->services->pluck('active')->toArray(),
             // "subCatgory_campaign" => $this->services->pluck("subCategory.name")->toArray(),
             // 'category_name' => $this->services->pluck('subCategory.category.name')->toArray(),
@@ -50,7 +51,7 @@ class CampaignResource extends JsonResource
 
         if (!is_null($this->admin)) {
             $data['admin_id'] = $this->admin->id;
-            $data['admin_name'] = $this->admin->name;
+            $data['admin_name'] = $this->admin->username;
         } else {
             $data['admin'] = $this->admin; //null for sure
         }

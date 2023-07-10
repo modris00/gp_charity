@@ -19,6 +19,7 @@ class BeneficiaryResource extends JsonResource
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,
+            "phone" => $this->phone,
             'age' => $this->age,
             'gender' => $this->gender,
             'created_at' => $this->created_at ? date_format($this->created_at, 'Y-m-d H:i:s') : null,

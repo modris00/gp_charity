@@ -290,20 +290,20 @@ Route::middleware("auth:sanctum")->group(function () {
 /**
  * Roles & Permissions
  */
-// Route::middleware('auth:admin-api')->group(function() {
-Route::apiResource('roles', RoleController::class);
-// Route::delete('/roles/{role}/force-delete', [RoleController::class, 'forceDelete']);
-// Route::put('/roles/{role}/restore', [RoleController::class, 'restore']);
+Route::middleware('auth:admin-api')->group(function () {
+    Route::apiResource('roles', RoleController::class);
+    // Route::delete('/roles/{role}/force-delete', [RoleController::class, 'forceDelete']);
+    // Route::put('/roles/{role}/restore', [RoleController::class, 'restore']);
 
 
-Route::apiResource('permissions', PermissionController::class);
-// Route::delete('/permissions/{permission}/force-delete', [PermissionController::class, 'forceDelete']);
-// Route::put('/permissions/{permission}/restore', [PermissionController::class, 'restore']);
+    Route::apiResource('permissions', PermissionController::class);
+    // Route::delete('/permissions/{permission}/force-delete', [PermissionController::class, 'forceDelete']);
+    // Route::put('/permissions/{permission}/restore', [PermissionController::class, 'restore']);
 
-Route::put('/roles/{role}/permission/{permission}', [GiveRolePermissionController::class, 'updateRolePermission']);
-// });
+    Route::put('/roles/{role}/permission/{permission}', [GiveRolePermissionController::class, 'updateRolePermission']);
+    Route::get('/roles-permissions/{id}', [GiveRolePermissionController::class, 'ShowPermission']);
+});
 
-Route::get('/roles-permissions/{id}', [GiveRolePermissionController::class, 'ShowPermission']);
 
 Route::post('/login', [AuthController::class, 'login']);
 

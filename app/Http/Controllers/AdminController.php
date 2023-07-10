@@ -52,10 +52,10 @@ class AdminController extends Controller
             $admin->email = $request->input('email');
             $admin->password = Hash::make($request->input('password'));
             $saved = $admin->save();
-            // if ($saved) {
-            //     $role = Role::findById(1); //Super Admin
-            //     $admin->assignRole($role);
-            // }
+            if ($saved) {
+                $role = Role::findById(1); //Super Admin
+                $admin->assignRole($role);
+            }
             return new Response(
                 ['data' => $admin, 'message' => $saved ? 'Created Admin Successfully' : 'Created Admin Failed!'],
                 $saved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST

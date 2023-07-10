@@ -44,6 +44,7 @@ class BeneficiaryController extends Controller
         $validator = validator($request->all(), [
             'name' => ['required', 'string', 'min:2', 'max:45'],
             'username' => ['required', 'string', 'unique:beneficiaries,username'],
+            'phone' => ['required', 'digits:9', 'numeric'],
             'email' => ['required', 'string', 'email', 'unique:beneficiaries,email'],
             'password' => ['nullable', RulesPassword::min(8)->symbols()->letters()->uncompromised()],
             'age' => ['nullable', 'numeric', ''],
@@ -55,6 +56,7 @@ class BeneficiaryController extends Controller
 
             $beneficiary = new Beneficiary();
             $beneficiary->name = $request->input('name');
+            $beneficiary->phone = $request->input('phone');
             $beneficiary->username = $request->input('username');
             $beneficiary->email = $request->input('email');
             $beneficiary->password = Hash::make($request->input('password'));
@@ -103,6 +105,7 @@ class BeneficiaryController extends Controller
         // $this->authorize('update', $beneficiary);
         $validator = validator($request->all(), [
             'name' => ['required', 'string', 'min:2', 'max:45'],
+            'phone' => ['required', 'digits:9', 'numeric'],
             'username' => ['required', 'string', Rule::unique('beneficiaries')->ignore($beneficiary->id)],
             'email' => ['required', 'string', 'email', Rule::unique('beneficiaries')->ignore($beneficiary->id)],
             'age' => ['nullable', 'numeric'],
@@ -113,6 +116,7 @@ class BeneficiaryController extends Controller
         if (!$validator->fails()) {
             // $beneficiary = Beneficiary::findorfail($id);
             $beneficiary->name = $request->input('name');
+            $beneficiary->phone = $request->input('phone');
             $beneficiary->username = $request->input('username');
             $beneficiary->email = $request->input('email');
             $beneficiary->age = $request->input('age');

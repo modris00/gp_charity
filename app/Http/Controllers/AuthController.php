@@ -17,12 +17,12 @@ class AuthController extends Controller
         ]);
 
         if (!$val->fails()) {
-
             $guard = $request->guard;
-
             if (Auth::guard($guard)->attempt($request->only(['email', 'password']))) {
+                $role = auth($request->input("guard"))->user()->roles[0];
                 return new Response([
                     'message' => 'logged successfuly',
+                    "role" => $role
                 ], Response::HTTP_OK);
             } else {
                 return new Response([

@@ -10,7 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Donor extends Authenticatable
 {
-    use HasFactory, SoftDeletes , HasRoles ;
+    use HasFactory, SoftDeletes, HasRoles;
 
     public $table = 'donors';
 
@@ -26,6 +26,6 @@ class Donor extends Authenticatable
 
     public function campaigns()
     {
-        return $this->belongsToMany(Campaign::class, CampaignsServices::class, 'donor_id', 'campaign_id');
+        return $this->belongsToMany(Campaign::class, CampaignsDonors::class, 'donor_id', 'campaign_id');
     }
 }

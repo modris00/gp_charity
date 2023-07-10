@@ -72,18 +72,8 @@ class DatabaseSeeder extends Seeder
         $admin->assignRole($role);
 
 
-        \App\Models\Donor::create([
-            'name' => 'Donor1',
-            'phone' => '987654321',
-            'username' => 'Donor1_username',
-            'email' => 'Donor1_email@app.com',
-            'area_id' => '1',
-            'password' => Hash::make(123456),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
 
-        \App\Models\Beneficiary::create([
+        $beneficiary = \App\Models\Beneficiary::create([
             'name' => 'Beneficiary1',
             'age' => '20',
             'gender' => 'Male',
@@ -95,6 +85,25 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        $role = Role::findById(2, "beneficiary");
+        $beneficiary->assignRole($role);
+
+
+
+        $donor = \App\Models\Donor::create([
+            'name' => 'Donor1',
+            'phone' => '987654321',
+            'username' => 'Donor1_username',
+            'email' => 'Donor1_email@app.com',
+            'area_id' => '1',
+            'password' => Hash::make(123456),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $role = Role::findById(3, "donor");
+        $donor->assignRole($role);
+
 
         \App\Models\Faq::create([
             'question' => 'question1',

@@ -178,4 +178,9 @@ class DonorController extends Controller
         $deleted = $donor->forceDelete();
         return new Response(['status' => $deleted]);
     }
+    public function campaigns(Request $request, $id)
+    {
+        $campaign = Donor::findOrFail($id)->campaigns;
+        return new Response(["status" => true, "data" => $campaign], Response::HTTP_OK);
+    }
 }

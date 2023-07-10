@@ -109,7 +109,7 @@ class SupplierController extends Controller
      */
     public function Archives()
     {
-        $this->authorize('restore', $supplier);
+        // $this->authorize('restore', $supplier);
         $suppliers = Supplier::onlyTrashed()->get();
         $data = SupplierResource::collection($suppliers);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);

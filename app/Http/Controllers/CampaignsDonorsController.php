@@ -16,7 +16,7 @@ class CampaignsDonorsController extends Controller
     public function index()
     {
         // Eloquent
-        // $this->authorize('viewAny' , CampaignsDonors::class);
+        $this->authorize('viewAny' , CampaignsDonors::class);
         $campaignsDonors = CampaignsDonors::all();
         return new CampaignsDonorsResourceCollection($campaignsDonors);
     }
@@ -26,7 +26,7 @@ class CampaignsDonorsController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create' , CampaignsDonors::class);
+        $this->authorize('create' , CampaignsDonors::class);
         // validate
         $valid = Validator($request->all(), [
             'amount' => 'required|numeric|min:0',
@@ -57,7 +57,7 @@ class CampaignsDonorsController extends Controller
      */
     public function show(CampaignsDonors $campaignsDonor)
     {
-        // $this->authorize('view' , $campaignsDonor);
+        $this->authorize('view' , $campaignsDonor);
         return new CampaignsDonorsResource($campaignsDonor);
     }
 
@@ -77,7 +77,7 @@ class CampaignsDonorsController extends Controller
         if (!$valid->fails()) {
             // Eloquent
             $campaignsDonors = CampaignsDonors::findOrFail($id);
-            // $this->authorize('update' , $campaignsDonors);
+            $this->authorize('update' , $campaignsDonors);
             $campaignsDonors->amount = $request->input('amount');
             $campaignsDonors->donor_id = $request->input('donor_id');
             $campaignsDonors->campaign_id = $request->input('campaign_id');
@@ -101,7 +101,7 @@ class CampaignsDonorsController extends Controller
     {
         // Eloquent
         $campaignsDonors = CampaignsDonors::findOrFail($id);
-        // $this->authorize('delete' , $campaignsDonors);
+        $this->authorize('delete' , $campaignsDonors);
         $deleted = $campaignsDonors->delete();
         return new Response(
             [
@@ -113,7 +113,7 @@ class CampaignsDonorsController extends Controller
 
     public function Archives()
     {
-        // $this->authorize('restore', $supplier);
+        $this->authorize('restore', $supplier);
         $CampaignsDonors = CampaignsDonors::onlyTrashed()->get();
         $data = CampaignsDonorsResource::collection($CampaignsDonors);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
@@ -125,7 +125,7 @@ class CampaignsDonorsController extends Controller
     {
         //
         $object = CampaignsDonors::onlyTrashed()->findOrFail($id);
-        // $this->authorize('restore' , $object);
+        $this->authorize('restore' , $object);
         $restored = $object->restore();
         return new Response(['status' => $restored]);
     }
@@ -134,7 +134,7 @@ class CampaignsDonorsController extends Controller
     {
         //
         $object = CampaignsDonors::withTrashed()->findOrFail($id);
-        // $this->authorize('forceDelete' , $object);
+        $this->authorize('forceDelete' , $object);
         $deleted = $object->forceDelete();
         // if ($deleted && $object->image) {
         //     // Storage::delete($object->image);

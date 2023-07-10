@@ -23,7 +23,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        // $this->authorize('viewAny', Supplier::class);
+        $this->authorize('viewAny', Supplier::class);
 
         $suppliers = Supplier::all();
         $data = SupplierResource::collection($suppliers);
@@ -35,7 +35,7 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create', Supplier::class);
+        $this->authorize('create', Supplier::class);
 
         $validator = Validator($request->all(), [
             'name' => 'required|string|min:3|max:45',
@@ -62,7 +62,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        // $this->authorize('view', $supplier);
+        $this->authorize('view', $supplier);
 
         // return response()->json(['object' => $supplier]);
         return new SupplierResource($supplier);
@@ -73,7 +73,7 @@ class SupplierController extends Controller
      */
     public function update(Request $request, Supplier $supplier)
     {
-        // $this->authorize('update', $supplier);
+        $this->authorize('update', $supplier);
 
         $validator = Validator($request->all(), [
             'name' => 'required|string|min:3|max:45',
@@ -98,7 +98,7 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        // $this->authorize('delete', $supplier);
+        $this->authorize('delete', $supplier);
 
         $deleted = $supplier->delete();
         return response()->json(['status' => $deleted, 'message' => $deleted ? 'Successfully deleted' : 'Delete failed'], $deleted ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
@@ -109,7 +109,7 @@ class SupplierController extends Controller
      */
     public function Archives()
     {
-        // $this->authorize('restore', $supplier);
+        $this->authorize('restore', $supplier);
         $suppliers = Supplier::onlyTrashed()->get();
         $data = SupplierResource::collection($suppliers);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
@@ -122,7 +122,7 @@ class SupplierController extends Controller
     {
         $supplier = Supplier::onlyTrashed()->findOrFail($id);
 
-        // $this->authorize('restore', $supplier);
+        $this->authorize('restore', $supplier);
 
         $restored = $supplier->restore();
         return new Response(['status' => $restored]);
@@ -135,7 +135,7 @@ class SupplierController extends Controller
     {
         $supplier = Supplier::withTrashed()->findOrFail($id);
 
-        // $this->authorize('forceDelete', $supplier);
+        $this->authorize('forceDelete', $supplier);
 
         $deleted = $supplier->forceDelete();
         return new Response(['status' => $deleted]);

@@ -19,7 +19,7 @@ class ServiceController extends Controller
     public function index()
     {
         // Eloquent
-        // $this->authorize('viewAny' , Service::class);
+        $this->authorize('viewAny' , Service::class);
         $services = Service::all();
         // $services = Service::with('subcategory')->get();
         return new ServiceResourceCollection($services);
@@ -30,7 +30,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create' , Service::class);
+        $this->authorize('create' , Service::class);
         // validate
         $valid = Validator($request->all(), [
             'name' => 'required|string|min:2|max:45|unique:services,id',
@@ -69,7 +69,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        // $this->authorize('view' , $service);
+        $this->authorize('view' , $service);
         return new ServiceResource($service);
     }
 
@@ -91,7 +91,7 @@ class ServiceController extends Controller
         if (!$valid->fails()) {
             // Eloquent
             $services = Service::findOrFail($id);
-            // $this->authorize('update' , $services);
+            $this->authorize('update' , $services);
             $services->name = $request->input('name');
             $services->description = $request->input('description');
             $services->active = $request->input('active');
@@ -114,7 +114,7 @@ class ServiceController extends Controller
 
     public function Archives()
     {
-        // $this->authorize('restore', $supplier);
+        $this->authorize('restore', $supplier);
         $admin = Service::onlyTrashed()->get();
         $data = ServiceResource::collection($admin);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
@@ -127,7 +127,7 @@ class ServiceController extends Controller
     {
         // Eloquent
         $services = Service::findOrFail($id);
-        // $this->authorize('delete' , $services);
+        $this->authorize('delete' , $services);
         $deleted = $services->delete();
         return new Response(
             [
@@ -144,7 +144,7 @@ class ServiceController extends Controller
     {
         //
         $service = Service::onlyTrashed()->findOrFail($id);
-        // $this->authorize('restore' , $service);
+        $this->authorize('restore' , $service);
         $restored = $service->restore();
         return new Response(['status' => $restored]);
     }
@@ -156,7 +156,7 @@ class ServiceController extends Controller
     {
         //
         $service = Service::withTrashed()->findOrFail($id);
-        // $this->authorize('forceDelete' , $service);
+        $this->authorize('forceDelete' , $service);
         $deleted = $service->forceDelete();
         return new Response(['status' => $deleted]);
     }

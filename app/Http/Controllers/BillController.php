@@ -22,7 +22,7 @@ class BillController extends Controller
      */
     public function index()
     {
-        // $this->authorize('viewAny', Bill::class);
+         $this->authorize('viewAny', Bill::class);
 
         $bills = Bill::all();
         $data = BillResource::collection($bills);
@@ -34,7 +34,7 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create', Bill::class);
+        $this->authorize('create', Bill::class);
 
         $validator = Validator($request->all(), [
             "cost" => "required|numeric",
@@ -85,7 +85,7 @@ class BillController extends Controller
      */
     public function show(Bill $bill)
     {
-        // $this->authorize('view', $bill);
+        $this->authorize('view', $bill);
 
         // Return Resource Object
         return new BillResource($bill);
@@ -96,7 +96,7 @@ class BillController extends Controller
      */
     public function update(Request $request, Bill $bill)
     {
-        // $this->authorize('update', $bill);
+        $this->authorize('update', $bill);
 
         $validator = Validator($request->all(), [
             "cost" => "required|numeric",
@@ -165,7 +165,7 @@ class BillController extends Controller
     public function destroy(Bill $bill)
     {
         // $bill = Bill::findOrFail($id);
-        // $this->authorize('delete', $bill);
+        $this->authorize('delete', $bill);
 
         //
         $deleted = $bill->delete();
@@ -177,7 +177,7 @@ class BillController extends Controller
 
     public function restore(Request $request, $id)
     {
-        // $this->authorize('restore', $bill);
+        $this->authorize('restore', $bill);
 
         //
         $bill = Bill::onlyTrashed()->findOrFail($id);
@@ -187,7 +187,7 @@ class BillController extends Controller
 
     public function forceDelete(Request $request, $id)
     {
-        // $this->authorize('forceDelete', $bill);
+        $this->authorize('forceDelete', $bill);
 
         //
         $bill = Bill::withTrashed()->findOrFail($id);

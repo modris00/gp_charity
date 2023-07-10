@@ -20,7 +20,7 @@ class ContactRequestController extends Controller
      */
     public function index()
     {
-        // $this->authorize('viewAny', ContactRequest::class);
+        $this->authorize('viewAny', ContactRequest::class);
 
         $ContactRequests = ContactRequest::all();
         $data = ContactRequestResource::collection($ContactRequests);
@@ -32,7 +32,7 @@ class ContactRequestController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create', ContactRequest::class);
+        $this->authorize('create', ContactRequest::class);
 
         $validator = Validator($request->all(), [
             'title' => 'required|string|min:3|max:100',
@@ -65,7 +65,7 @@ class ContactRequestController extends Controller
      */
     public function show(ContactRequest $contactRequest)
     {
-        // $this->authorize('view', $contactRequest);
+        $this->authorize('view', $contactRequest);
 
         return new ContactRequestResource($contactRequest);
     }
@@ -75,7 +75,7 @@ class ContactRequestController extends Controller
      */
     public function update(Request $request, ContactRequest $contactRequest)
     {
-        // $this->authorize('update', $contactRequest);
+        $this->authorize('update', $contactRequest);
 
         $validator = Validator($request->all(), [
             'response' => 'nullable|string|max:150',
@@ -107,7 +107,7 @@ class ContactRequestController extends Controller
      */
     public function destroy(ContactRequest $contactRequest)
     {
-        // $this->authorize('delete', $contactRequest);
+        $this->authorize('delete', $contactRequest);
         $deleted = $contactRequest->delete();
         return response()->json([
             'status' => $deleted,
@@ -118,7 +118,7 @@ class ContactRequestController extends Controller
     public function restore(Request $request, $id)
     {
         $contactRequest = ContactRequest::onlyTrashed()->findOrFail($id);
-        // $this->authorize('restore', $contactRequest);
+        $this->authorize('restore', $contactRequest);
 
         $restored = $contactRequest->restore();
         return response()->json(['status' => $restored]);
@@ -127,7 +127,7 @@ class ContactRequestController extends Controller
     public function forceDelete(Request $request, $id)
     {
         $contactRequest = ContactRequest::withTrashed()->findOrFail($id);
-        // $this->authorize('forceDelete', $contactRequest);
+        $this->authorize('forceDelete', $contactRequest);
 
         $deleted = $contactRequest->forceDelete();
         return response()->json(['status' => $deleted]);
@@ -135,7 +135,7 @@ class ContactRequestController extends Controller
 
     public function Archives()
     {
-        // $this->authorize('restore', $supplier);
+        $this->authorize('restore', $supplier);
         $contactRequests = ContactRequest::onlyTrashed()->get();
         $data = ContactRequestResource::collection($contactRequests);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);

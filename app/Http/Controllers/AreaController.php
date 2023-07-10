@@ -16,7 +16,7 @@ class AreaController extends Controller
      */
     public function index()
     {
-        // $this->authorize('viewAny' , Area::class);
+         $this->authorize('viewAny' , Area::class);
         // $area = Area::latest()->paginate(10);
         $area = Area::all();
         return new AreaResourceCollection($area);
@@ -28,7 +28,7 @@ class AreaController extends Controller
     public function store(Request $request)
     {
 
-        // $this->authorize('create' , Area::class);
+        $this->authorize('create' , Area::class);
         $validator = validator($request->all(), [
             'name' => ['required', 'string', 'min:2', 'max:30'],
             'city_id' => ['required', 'int', 'numeric', 'exists:cities,id']
@@ -59,7 +59,7 @@ class AreaController extends Controller
      */
     public function show(Area $area)
     {
-        // $this->authorize('view' , $area);
+        $this->authorize('view' , $area);
         return new AreaResource($area);
     }
 
@@ -77,7 +77,7 @@ class AreaController extends Controller
         if (!$validator->fails()) {
 
             $area = Area::findorfail($id);
-            // $this->authorize('update' ,  $area);
+            $this->authorize('update' ,  $area);
             $area->name = $request->input('name');
             $area->city_id = $request->input('city_id');
             $area->save();
@@ -104,7 +104,7 @@ class AreaController extends Controller
     public function destroy($id)
     {
         $area = Area::findorfail($id);
-        // $this->authorize('delete' ,  $area);
+        $this->authorize('delete' ,  $area);
         $area->delete();
 
         if ($area) {
@@ -129,7 +129,7 @@ class AreaController extends Controller
 
     public function Archives()
     {
-        // $this->authorize('restore' , Area::class);
+        $this->authorize('restore' , Area::class);
         $area = Area::onlyTrashed()->get();
         $data = AreaResource::collection($area);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
@@ -143,7 +143,7 @@ class AreaController extends Controller
     {
 
         $area = Area::onlyTrashed()->findOrFail($id);
-        // $this->authorize('restore' ,  $area);
+        $this->authorize('restore' ,  $area);
         $restored = $area->restore();
         return new Response(['status' => $restored]);
     }
@@ -155,7 +155,7 @@ class AreaController extends Controller
     {
         //
         $area = Area::withTrashed()->findOrFail($id);
-        // $this->authorize('forceDelete' ,  $area);
+        $this->authorize('forceDelete' ,  $area);
         $deleted = $area->forceDelete();
         return new Response(['status' => $deleted]);
     }

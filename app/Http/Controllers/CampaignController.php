@@ -17,7 +17,7 @@ class CampaignController extends Controller
     public function index()
     {
         // Eloquent
-        // $this->authorize('viewAny' , Campaign::class);
+        $this->authorize('viewAny' , Campaign::class);
         // $campaign = Campaign::all();
         $campaign = Campaign::with('admin', 'currency', 'services')->withCount("beneficiaries", "services", "operations", "bills")->get();
         // return new Response(['data' => $campaign]);
@@ -29,7 +29,7 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create' , Campaign::class);
+       $this->authorize('create' , Campaign::class);
         // validate
         $valid = Validator($request->all(), [
             'title' => 'required|string|max:190',
@@ -75,7 +75,7 @@ class CampaignController extends Controller
 
     public function show(Campaign $campaign)
     {
-        // $this->authorize('view' , $campaign);
+        $this->authorize('view' , $campaign);
         return new CampaignResource($campaign);
     }
 
@@ -99,7 +99,7 @@ class CampaignController extends Controller
         if (!$valid->fails()) {
             // Eloquent
             $campaign = Campaign::findOrFail($id);
-            // $this->authorize('update' , $campaign);
+            $this->authorize('update' , $campaign);
             $campaign->title = $request->input('title');
             $campaign->amount = $request->input('amount');
             $campaign->status = $request->input('status');
@@ -124,7 +124,7 @@ class CampaignController extends Controller
     {
         // Eloquent
         $campaign = Campaign::findOrFail($id);
-        // $this->authorize('delete' , $campaign);
+        $this->authorize('delete' , $campaign);
         $deleted = $campaign->delete();
         return new Response(
             [
@@ -136,7 +136,7 @@ class CampaignController extends Controller
 
     public function Archives()
     {
-        // $this->authorize('restore', $supplier);
+        $this->authorize('restore', $supplier);
         $campaign = Campaign::onlyTrashed()->get();
         $data = CampaignResource::collection($campaign);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
@@ -149,7 +149,7 @@ class CampaignController extends Controller
     {
         //
         $campaign = Campaign::onlyTrashed()->findOrFail($id);
-        // $this->authorize('restore' , $campaign);
+        $this->authorize('restore' , $campaign);
         $restored = $campaign->restore();
         return new Response(['status' => $restored]);
     }
@@ -161,7 +161,7 @@ class CampaignController extends Controller
     {
         //
         $campaign = Campaign::withTrashed()->findOrFail($id);
-        // $this->authorize('forceDelete' , $campaign);
+        $this->authorize('forceDelete' , $campaign);
         $deleted = $campaign->forceDelete();
         return new Response(['status' => $deleted]);
     }

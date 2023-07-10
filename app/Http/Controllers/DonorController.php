@@ -53,10 +53,10 @@ class DonorController extends Controller
             $donor->password = Hash::make($request->input('password'));
             $donor->area_id = $request->input('area_id');
             $saved = $donor->save();
-            // if ($saved) {
-            //     $role = Role::findById(3); //User-Donor
-            //     $donor->assignRole($role);
-            // }
+            if ($saved) {
+                $role = Role::findById(3, 'donor'); //User-Donor
+                $donor->assignRole($role);
+            }
             return new Response([
                 'object' => $donor,
                 'message' => $donor ? 'Created successfuly' : 'error adding',
@@ -177,5 +177,17 @@ class DonorController extends Controller
         // $this->authorize('forceDelete' ,  $donor);
         $deleted = $donor->forceDelete();
         return new Response(['status' => $deleted]);
+    }
+
+    public function campaigns(Request $request, $id)
+    {
+        $campaigns = Donor::findOrFail($id)->campaigns;
+        return new Response(["status" => true, "data" => $campaigns], Response::HTTP_OK);
+    }
+
+    public function contactRequests(Request $request, $id)
+    {
+        $contactRequests = Donor::findOrFail($id)->contactRequests;
+        return new Response(["status" => true, "data" => $contactRequests], Response::HTTP_OK);
     }
 }

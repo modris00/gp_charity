@@ -64,12 +64,12 @@ class BeneficiaryController extends Controller
             $beneficiary->gender = $request->input('gender');
             $beneficiary->area_id = $request->input('area_id');
             $saved = $beneficiary->save();
+            if ($saved) {
+                $role = Role::findById(2, 'beneficiary'); //User-Beneficiary
+                $beneficiary->assignRole($role);
+            }
             // if ($saved) {
-            //     $role = Role::findById(2); //User-Beneficiary
-            //     $beneficiary->assignRole($role);
-            // }
-            // if ($saved) {
-            //     // $admin->syncRoles(Role::findById($request->input('role_id'), 'admin'));
+            //   //$beneficiary->syncRoles(Role::findById($request->input('role_id'), 'beneficiary'));
             //     $beneficiary->syncRoles(Role::findById(2, 'beneficiary'));
             // }
             return new Response([
@@ -199,5 +199,17 @@ class BeneficiaryController extends Controller
 
         $deleted = $beneficiary->forceDelete();
         return new Response(['status' => $deleted]);
+    }
+
+    public function campaigns(Request $request, $id)
+    {
+        $campaigns = Beneficiary::findOrFail($id)->campaigns;
+        return new Response(["status" => true, "data" => $campaigns], Response::HTTP_OK);
+    }
+
+    public function contactRequests(Request $request, $id)
+    {
+        $contactRequests = Beneficiary::findOrFail($id)->contactRequests;
+        return new Response(["status" => true, "data" => $contactRequests], Response::HTTP_OK);
     }
 }

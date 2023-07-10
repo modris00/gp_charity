@@ -44,8 +44,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('campaigns/{campaign}/services', [CampaignController::class, 'services']);
-Route::get('campaigns/{beneficiary}/beneficiaries', [CampaignController::class, 'beneficiaries']);
-Route::get('campaigns/{donor}/donors', [CampaignController::class, 'donors']);
+Route::get('campaigns/{campaign}/beneficiaries', [CampaignController::class, 'beneficiaries']);
+Route::get('campaigns/{campaign}/donors', [CampaignController::class, 'donors']);
+
+Route::get('donors/{donor}/campaigns', [DonorController::class, 'campaigns']);
+Route::get('donors/{donor}/contact-requests', [DonorController::class, 'contactRequests']);
+
+Route::get('beneficiaries/{beneficiary}/campaigns', [BeneficiaryController::class, 'campaigns']);
+Route::get('beneficiaries/{beneficiary}/contact-requests', [BeneficiaryController::class, 'contactRequests']);
 
 /**
  * Clear Cache

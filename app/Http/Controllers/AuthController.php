@@ -20,9 +20,11 @@ class AuthController extends Controller
             $guard = $request->guard;
             if (Auth::guard($guard)->attempt($request->only(['email', 'password']))) {
                 $role = auth($request->input("guard"))->user()->roles[0];
+                $data = auth($request->input("guard"))->user();
                 return new Response([
                     'message' => 'logged successfuly',
-                    "role" => $role
+                    "role" => $role,
+                    "user" => $data
                 ], Response::HTTP_OK);
             } else {
                 return new Response([

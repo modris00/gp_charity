@@ -53,6 +53,7 @@ Route::get('donors/{donor}/contact-requests', [DonorController::class, 'contactR
 Route::get('beneficiaries/{beneficiary}/campaigns', [BeneficiaryController::class, 'campaigns']);
 Route::get('beneficiaries/{beneficiary}/contact-requests', [BeneficiaryController::class, 'contactRequests']);
 
+
 /**
  * Clear Cache
  */

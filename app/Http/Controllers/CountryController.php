@@ -17,7 +17,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //  $this->authorize('viewAny' ,  Country::class);
+         $this->authorize('viewAny' ,  Country::class);
         // $country = Country::latest()->paginate(10);
         $country = Country::all();
         return new CountryResourceCollection($country);
@@ -28,7 +28,7 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
-        //  $this->authorize('create' ,  Country::class);
+         $this->authorize('create' ,  Country::class);
         $validator = validator($request->all(), [
             'name' => ['required', 'string', 'min:2', 'max:30', 'unique:countries,id']
         ]);
@@ -62,7 +62,7 @@ class CountryController extends Controller
         //     'data' => $country_cities,
         //     'status' => true,
         // ], Response::HTTP_OK);
-        //  $this->authorize('view' ,  $country);
+         $this->authorize('view' ,  $country);
         return new CountryResource($country);
     }
 
@@ -81,7 +81,7 @@ class CountryController extends Controller
         if (!$valditor->fails()) {
 
             $country  =  country::findorfail($id);
-            //  $this->authorize('update' ,  $country);
+             $this->authorize('update' ,  $country);
             $country->name = $request->input('name');
             $country->save();
 
@@ -107,7 +107,7 @@ class CountryController extends Controller
     public function destroy(string $id)
     {
         $country = Country::findorfail($id);
-        //  $this->authorize('delete' ,  $country);
+         $this->authorize('delete' ,  $country);
         $country->delete();
 
         if ($country) {
@@ -127,7 +127,7 @@ class CountryController extends Controller
 
     public function Archives()
     {
-        //  $this->authorize('restore' ,  Country::class);
+         $this->authorize('restore' ,  Country::class);
         $country = Country::onlyTrashed()->get();
         $data = CountryResource::collection($country);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
@@ -140,7 +140,7 @@ class CountryController extends Controller
     {
         //
         $country = Country::onlyTrashed()->findOrFail($id);
-        //  $this->authorize('restore' ,  $country);
+         $this->authorize('restore' ,  $country);
         $restored = $country->restore();
         return new Response(['status' => $restored]);
     }
@@ -152,7 +152,7 @@ class CountryController extends Controller
     {
         //
         $country = Country::withTrashed()->findOrFail($id);
-        //  $this->authorize('forceDelete' ,  $country);
+         $this->authorize('forceDelete' ,  $country);
         $deleted = $country->forceDelete();
         return new Response(['status' => $deleted]);
     }

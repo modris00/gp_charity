@@ -26,7 +26,7 @@ class BeneficiaryController extends Controller
      */
     public function index()
     {
-        // $this->authorize('viewAny', Beneficiary::class);
+        $this->authorize('viewAny', Beneficiary::class);
 
         // $beneficiaries = Beneficiary::latest()->Paginate(10);
         $beneficiaries = Beneficiary::all();
@@ -40,7 +40,7 @@ class BeneficiaryController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create', Beneficiary::class);
+        $this->authorize('create', Beneficiary::class);
         $validator = validator($request->all(), [
             'name' => ['required', 'string', 'min:2', 'max:45'],
             'username' => ['required', 'string', 'unique:beneficiaries,username'],
@@ -91,7 +91,7 @@ class BeneficiaryController extends Controller
      */
     public function show(Beneficiary $beneficiary)
     {
-        // $this->authorize('view', $beneficiary);
+        $this->authorize('view', $beneficiary);
         return new BeneficiaryResource($beneficiary);
     }
 
@@ -102,7 +102,7 @@ class BeneficiaryController extends Controller
      */
     public function update(Request $request,  Beneficiary $beneficiary)
     {
-        // $this->authorize('update', $beneficiary);
+        $this->authorize('update', $beneficiary);
         $validator = validator($request->all(), [
             'name' => ['required', 'string', 'min:2', 'max:45'],
             'phone' => ['required', 'digits:9', 'numeric'],
@@ -143,7 +143,7 @@ class BeneficiaryController extends Controller
      */
     public function destroy(Beneficiary $beneficiary)
     {
-        // $this->authorize('delete', $beneficiary);
+        $this->authorize('delete', $beneficiary);
 
         // $beneficiary = Beneficiary::findorfail($id);
         $beneficiary->delete();
@@ -169,7 +169,7 @@ class BeneficiaryController extends Controller
 
     public function Archives()
     {
-        // $this->authorize('restore', $supplier);
+        $this->authorize('restore', $supplier);
         $beneficiary = Beneficiary::onlyTrashed()->get();
         $data = BeneficiaryResource::collection($beneficiary);
         return response()->json(['status' => true, 'message' => 'success', 'data' => $data], 200);
@@ -182,7 +182,7 @@ class BeneficiaryController extends Controller
     {
         $beneficiary = Beneficiary::onlyTrashed()->findOrFail($id);
 
-        // $this->authorize('restore', $beneficiary);
+         $this->authorize('restore', $beneficiary);
 
         $restored = $beneficiary->restore();
         return new Response(['status' => $restored]);
@@ -195,7 +195,7 @@ class BeneficiaryController extends Controller
     {
         $beneficiary = Beneficiary::withTrashed()->findOrFail($id);
 
-        // $this->authorize('forceDelete', $beneficiary);
+        $this->authorize('forceDelete', $beneficiary);
 
         $deleted = $beneficiary->forceDelete();
         return new Response(['status' => $deleted]);

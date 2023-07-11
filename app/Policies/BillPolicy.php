@@ -8,6 +8,13 @@ use Illuminate\Auth\Access\Response;
 
 class BillPolicy
 {
+    public function before($user, string $ability): bool|null
+    {
+        if ($user->roles[0]->name == "Super Admin") {
+            return true;
+        }
+        return null;
+    }
     /**
      * Determine whether the user can view any models.
      */

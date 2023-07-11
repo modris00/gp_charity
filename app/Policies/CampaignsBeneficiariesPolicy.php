@@ -7,6 +7,13 @@ use Illuminate\Auth\Access\Response;
 
 class CampaignsBeneficiariesPolicy
 {
+    public function before($user, string $ability): bool|null
+    {
+        if ($user->roles[0]->name == "Super Admin") {
+            return true;
+        }
+        return null;
+    }
     /**
      * Determine whether the user can view any models.
      */
@@ -53,7 +60,6 @@ class CampaignsBeneficiariesPolicy
     public function restore($user, CampaignsBeneficiaries $campaignsBeneficiaries): bool
     {
         return $user->hasPermissionTo('Restore-CampaignBeneficiary');
-
     }
 
     /**
@@ -62,6 +68,5 @@ class CampaignsBeneficiariesPolicy
     public function forceDelete($user, CampaignsBeneficiaries $campaignsBeneficiaries): bool
     {
         return $user->hasPermissionTo('forceDelete-CampaignBeneficiary');
-
     }
 }

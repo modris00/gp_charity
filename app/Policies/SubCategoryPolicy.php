@@ -12,7 +12,7 @@ class SubCategoryPolicy
      */
     public function viewAny($user): bool
     {
-        return $user->hasPermissionTo('Index-SubCategoris');
+        return $user->hasPermissionTo('Index-SubCategories');
     }
 
     /**
@@ -53,7 +53,6 @@ class SubCategoryPolicy
     public function restore($user, SubCategory $subCategory): bool
     {
         return $user->hasPermissionTo('Restore-SubCategory');
-
     }
 
     /**

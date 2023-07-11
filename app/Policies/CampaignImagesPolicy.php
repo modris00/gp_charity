@@ -7,6 +7,13 @@ use Illuminate\Auth\Access\Response;
 
 class CampaignImagesPolicy
 {
+    public function before($user, string $ability): bool|null
+    {
+        if ($user->roles[0]->name == "Super Admin") {
+            return true;
+        }
+        return null;
+    }
     /**
      * Determine whether the user can view any models.
      */
@@ -37,7 +44,6 @@ class CampaignImagesPolicy
     public function update($user, CampaignImages $campaignImages): bool
     {
         return $user->hasPermissionTo('Update-CampaignImage');
-
     }
 
     /**
